@@ -32,6 +32,7 @@
             this.파일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +43,8 @@
             this.파일ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1488, 33);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(1042, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -51,33 +53,40 @@
             this.파일ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.추가ToolStripMenuItem});
             this.파일ToolStripMenuItem.Name = "파일ToolStripMenuItem";
-            this.파일ToolStripMenuItem.Size = new System.Drawing.Size(64, 29);
+            this.파일ToolStripMenuItem.Size = new System.Drawing.Size(43, 22);
             this.파일ToolStripMenuItem.Text = "파일";
             // 
             // 추가ToolStripMenuItem
             // 
             this.추가ToolStripMenuItem.Name = "추가ToolStripMenuItem";
-            this.추가ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.추가ToolStripMenuItem.Text = "추가";
+            this.추가ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.추가ToolStripMenuItem.Text = "파일 추가";
+            this.추가ToolStripMenuItem.Click += new System.EventHandler(this.파일추가ToolStripMenuItem_Click);
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AllowDrop = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 36);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(8, 24);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1464, 826);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1025, 551);
             this.flowLayoutPanel1.TabIndex = 2;
             this.flowLayoutPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.FlowLayoutPanel1_DragDrop);
             this.flowLayoutPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.FlowLayoutPanel1_DragEnter);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1488, 874);
+            this.ClientSize = new System.Drawing.Size(1042, 583);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
@@ -93,6 +102,7 @@
         private System.Windows.Forms.ToolStripMenuItem 파일ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 추가ToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
