@@ -42,9 +42,14 @@ namespace Explorer
                 root.Nodes.Add(""); // 드라이브 옆에 '+' 표시가 나오도록 설정
             }
 
+            listView1.Columns.Clear();
+
             자세히ToolStripMenuItem.Checked = true;
             listView1.View = View.Details;
 
+            listView1.Columns.Add("이름", 200);
+            listView1.Columns.Add("크기", 80);
+            listView1.Columns.Add("수정한 날짜", 150);
             listView1.Columns.Add("우선순위", 100);
 
             LoadPriorityData();
@@ -326,6 +331,12 @@ namespace Explorer
 
                         string fullPath = textBox1.Text + "\\" + selectedItem.Text;
                         priorityInfo[fullPath] = priority;
+
+                        // 우선순위 설정 및 수정 시 강조 표시 즉시 적용
+                        if (priority > 0)
+                            selectedItem.BackColor = Color.Yellow; // 우선순위 항목은 노란색으로 강조 표시
+                        else
+                            selectedItem.BackColor = Color.White; // 우선순위 0이면 강조 해제
                     }
                     else
                     {
