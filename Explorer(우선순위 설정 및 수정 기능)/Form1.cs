@@ -277,11 +277,11 @@ namespace Explorer
                     간단히ToolStripMenuItem.Checked = true;
                     listView1.View = View.List;
                     break;
-                case "작은아이콘":
+                case "작은 아이콘":
                     작은아이콘ToolStripMenuItem.Checked = true;
                     listView1.View = View.SmallIcon;
                     break;
-                case "큰아이콘":
+                case "큰 아이콘":
                     큰아이콘ToolStripMenuItem.Checked = true;
                     listView1.View = View.LargeIcon;
                     break;
