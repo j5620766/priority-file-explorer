@@ -367,10 +367,97 @@ namespace Explorer
             listView1.ListViewItemSorter = new ListViewItemComparer(sortColumn, sortAscending);
             listView1.Sort();
         }
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
 
+                string path = textBox1.Text.Trim();
 
+                if (!Directory.Exists(path))
+                {
+                    MessageBox.Show("해당 경로가 존재하지 않습니다.");
+                    return;
+                }
+                if (!SelectNodeByPath(path))
+                    RefreshListView(path);
+            }
+        }
+        private bool SelectNodeByPath(string fullPath)
+        {
+            string[] parts = fullPath.TrimEnd('\\').Split('\\');
+            if (parts.Length == 0) return false;
+            TreeNode current = treeView1.Nodes
+                .Cast<TreeNode>()
+                .FirstOrDefault(n => n.Text.StartsWith(parts[0],
+                         StringComparison.OrdinalIgnoreCase));
 
+            if (current == null) return false;
 
+            treeView1.SelectedNode = current;
+            for (int i = 1; i < parts.Length; i++)
+            {
+                current.Expand();
+                current = current.Nodes
+                    .Cast<TreeNode>()
+                    .FirstOrDefault(n => n.Text.Equals(parts[i],
+                         StringComparison.OrdinalIgnoreCase));
+
+                if (current == null) return false;
+                treeView1.SelectedNode = current;
+            }
+
+            current.EnsureVisible();
+            treeView1.Focus();
+            return true;
+        }
+        private void RefreshListView(string path)
+        {
+            try
+            {
+                listView1.Items.Clear();
+                DirectoryInfo di = new DirectoryInfo(path);
+                foreach (var dir in di.GetDirectories())
+                {
+                    var item = listView1.Items.Add(dir.Name);
+                    item.SubItems.Add("");
+                    item.SubItems.Add(dir.LastWriteTime.ToString());
+                    item.ImageIndex = 0;
+                    item.Tag = "D";
+
+                    string full = path + "\\" + dir.Name;
+                    if (priorityInfo.ContainsKey(full))
+                    {
+                        item.SubItems.Add(priorityInfo[full].ToString());
+                        if (priorityInfo[full] > 0) item.BackColor = Color.Yellow;
+                    }
+                    else item.SubItems.Add("0");
+                }
+                foreach (var file in di.GetFiles())
+                {
+                    var item = listView1.Items.Add(file.Name);
+                    item.SubItems.Add(file.Length.ToString());
+                    item.SubItems.Add(file.LastWriteTime.ToString());
+                    item.ImageIndex = 1;
+                    item.Tag = "F";
+
+                    string full = path + "\\" + file.Name;
+                    if (priorityInfo.ContainsKey(full))
+                    {
+                        item.SubItems.Add(priorityInfo[full].ToString());
+                        if (priorityInfo[full] > 0) item.BackColor = Color.Yellow;
+                    }
+                    else item.SubItems.Add("0");
+                }
+                textBox1.Text = path;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
 
