@@ -1,0 +1,28 @@
+C:\PerfLogs,0
+C:\Documents and Settings,0
+C:\Users,0
+C:\Temp,0
+C:\Recovery,0
+C:\Riot Games,0
+C:\junit_demo,0
+C:\CookAndroid,0
+C:\gradle_demo,0
+C:\Intel,0
+C:\Nexon,0
+C:\Kwang,0
+C:\DumpStack.log,0
+C:\$WinREAgent,0
+C:\Windows,0
+C:\inetpub,0
+C:\swapfile.sys,0
+C:\pagefile.sys,0
+C:\DumpStack.log.tmp,0
+C:\hiberfil.sys,0
+C:\(CCTHD6,0
+C:\$Recycle.Bin,0
+C:\System Volume Information,0
+C:\ProgramData,0
+C:\Program Files,0
+C:\Program Files (x86),0
+C:\maven_demo,12
+C:\MSI,44
