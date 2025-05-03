@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DDAD07DF-93AA-4ECF-8CC6-1B8D595CAE50}|priority-file-explorer-.csproj|C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DDAD07DF-93AA-4ECF-8CC6-1B8D595CAE50}|priority-file-explorer-.csproj|c:\\users\\yytss\\desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DDAD07DF-93AA-4ECF-8CC6-1B8D595CAE50}|priority-file-explorer-.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DDAD07DF-93AA-4ECF-8CC6-1B8D595CAE50}|priority-file-explorer-.csproj|c:\\users\\yytss\\desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DDAD07DF-93AA-4ECF-8CC6-1B8D595CAE50}|priority-file-explorer-.csproj|C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DDAD07DF-93AA-4ECF-8CC6-1B8D595CAE50}|priority-file-explorer-.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -26,9 +26,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\Form1.cs*",
-              "RelativeToolTip": "Form1.cs*",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAAwC4AAAANAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAIwCcAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-03T06:56:56.68Z",
               "EditorCaption": ""
@@ -39,11 +39,10 @@
               "Title": "Form1.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\Form1.cs [\uB514\uC790\uC778]*",
-              "RelativeToolTip": "Form1.cs [\uB514\uC790\uC778]*",
+              "ToolTip": "C:\\Users\\yytss\\Desktop\\univ\\3-1\\\uC751\uC18C\uC2E4\\team_project\\priority-file-explorer\\priority-file-explorer-\\Form1.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "Form1.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-03T06:31:43.561Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2025-05-03T06:31:43.561Z"
             }
           ]
         }

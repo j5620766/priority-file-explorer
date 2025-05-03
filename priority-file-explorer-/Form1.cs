@@ -39,14 +39,7 @@ namespace priority_file_explorer_
         {
             string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            // 폴더 하나만 드롭한 경우 → 직접 진입
-            if (paths.Length == 1 && Directory.Exists(paths[0]))
-            {
-                NavigateToFolder(paths[0]);
-                return;
-            }
-
-            // ✔️ VIRTUAL_ROOT 상태일 경우: 기존 목록에 추가만
+            
             if (currentPath == "VIRTUAL_ROOT")
             {
                 foreach (string path in paths)
@@ -60,7 +53,7 @@ namespace priority_file_explorer_
                 return;
             }
 
-            // ✔️ 맨 처음만 VIRTUAL_ROOT 설정
+            //  맨 처음만 VIRTUAL_ROOT 설정
             if (string.IsNullOrEmpty(currentPath))
             {
                 currentPath = "VIRTUAL_ROOT";
@@ -154,7 +147,7 @@ namespace priority_file_explorer_
 
                 if (Directory.Exists(path))  // 폴더일 경우
                 {
-                    NavigateToFolder(path); // 🔥 내부 탐색 함수 호출
+                    NavigateToFolder(path); //  내부 탐색 함수 호출
                 }
                 else if (System.IO.File.Exists(path))  // 파일일 경우
                 {
