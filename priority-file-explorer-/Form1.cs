@@ -18,6 +18,8 @@ namespace priority_file_explorer_
         private Stack<string> pathHistory = new Stack<string>();
         private string currentPath = "";
         private Panel selectedPanel = null;
+        private List<string> virtualRootEntries = new List<string>();
+
         public Form1()
         {
             InitializeComponent();
@@ -37,6 +39,39 @@ namespace priority_file_explorer_
         {
             string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
 
+            
+            if (currentPath == "VIRTUAL_ROOT")
+            {
+                foreach (string path in paths)
+                {
+                    if ((System.IO.File.Exists(path) || Directory.Exists(path)) && !virtualRootEntries.Contains(path))
+                    {
+                        virtualRootEntries.Add(path);
+                        flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
+                    }
+                }
+                return;
+            }
+
+            //  맨 처음만 VIRTUAL_ROOT 설정
+            if (string.IsNullOrEmpty(currentPath))
+            {
+                currentPath = "VIRTUAL_ROOT";
+                pathHistory.Clear();
+                virtualRootEntries = new List<string>(paths);
+                flowLayoutPanel1.Controls.Clear();
+
+                foreach (string path in paths)
+                {
+                    if (System.IO.File.Exists(path) || Directory.Exists(path))
+                    {
+                        flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
+                    }
+                }
+
+                return;
+            }
+
             foreach (string path in paths)
             {
                 if (System.IO.File.Exists(path) || Directory.Exists(path))
@@ -45,6 +80,7 @@ namespace priority_file_explorer_
                 }
             }
         }
+
 
         void AddClickHandler(Control parent, EventHandler handler)
         {
@@ -111,7 +147,7 @@ namespace priority_file_explorer_
 
                 if (Directory.Exists(path))  // 폴더일 경우
                 {
-                    NavigateToFolder(path); // 🔥 내부 탐색 함수 호출
+                    NavigateToFolder(path); //  내부 탐색 함수 호출
                 }
                 else if (System.IO.File.Exists(path))  // 파일일 경우
                 {
@@ -225,6 +261,18 @@ namespace priority_file_explorer_
 
             try
             {
+                if (path == "VIRTUAL_ROOT")
+                {
+                    foreach (string entry in virtualRootEntries)
+                    {
+                        if (System.IO.File.Exists(entry) || Directory.Exists(entry))
+                        {
+                            flowLayoutPanel1.Controls.Add(CreateFilePanel(entry));
+                        }
+                    }
+                    return;
+                }
+
                 string[] entries = Directory.GetFileSystemEntries(path);
                 foreach (string entry in entries)
                 {
