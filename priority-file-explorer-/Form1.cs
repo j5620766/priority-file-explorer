@@ -15,6 +15,8 @@ namespace priority_file_explorer_
 {
     public partial class Form1 : Form
     {
+        private Stack<string> pathHistory = new Stack<string>();
+        private string currentPath = "";
         private Panel selectedPanel = null;
         public Form1()
         {
@@ -33,11 +35,14 @@ namespace priority_file_explorer_
         // FlowLayoutPanel1에 드래그 한 파일을 놓으면 패널에 파일 출력
         private void FlowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            foreach (string file in files)
+            foreach (string path in paths)
             {
-                flowLayoutPanel1.Controls.Add(CreateFilePanel(file));
+                if (System.IO.File.Exists(path) || Directory.Exists(path))
+                {
+                    flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
+                }
             }
         }
 
@@ -102,17 +107,26 @@ namespace priority_file_explorer_
             // 더블클릭 시 파일 실행
             EventHandler doubleClickHandler = (s, e) =>
             {
-                try
+                string path = (string)((Control)s).Tag;
+
+                if (Directory.Exists(path))  // 폴더일 경우
                 {
-                    var psi = new ProcessStartInfo(file)
-                    {
-                        UseShellExecute = true
-                    };
-                    Process.Start(psi);
+                    NavigateToFolder(path); // 🔥 내부 탐색 함수 호출
                 }
-                catch (Exception ex)
+                else if (System.IO.File.Exists(path))  // 파일일 경우
                 {
-                    MessageBox.Show("파일 실행 실패: " + ex.Message);
+                    try
+                    {
+                        var psi = new ProcessStartInfo(file)
+                        {
+                            UseShellExecute = true
+                        };
+                        Process.Start(psi);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("파일 실행 실패: " + ex.Message);
+                    }
                 }
             };
 
@@ -172,6 +186,10 @@ namespace priority_file_explorer_
                     pb.Image = SystemIcons.Warning.ToBitmap();
                 }
             }
+            else if (Directory.Exists(file)) // 폴더일 경우
+            {
+                pb.Image = Properties.Resources.folder;  // 또는 사용자 정의 폴더 아이콘
+            }
             else
             {
                 pb.Image = Icon.ExtractAssociatedIcon(file).ToBitmap();
@@ -195,6 +213,41 @@ namespace priority_file_explorer_
             return lbl;
         }
 
-        
+        private void NavigateToFolder(string path, bool addToHistory = true)
+        {
+            if (addToHistory && !string.IsNullOrEmpty(currentPath))
+            {
+                pathHistory.Push(currentPath);
+            }
+
+            currentPath = path;
+            flowLayoutPanel1.Controls.Clear();
+
+            try
+            {
+                string[] entries = Directory.GetFileSystemEntries(path);
+                foreach (string entry in entries)
+                {
+                    flowLayoutPanel1.Controls.Add(CreateFilePanel(entry));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("폴더 열기 실패: " + ex.Message);
+            }
+        }
+
+        private void btn_back_Click(object sender, EventArgs e)
+        {
+            if (pathHistory.Count > 0)
+            {
+                string previousPath = pathHistory.Pop();
+                NavigateToFolder(previousPath, addToHistory: false); // 
+            }
+            else
+            {
+                MessageBox.Show("더 이상 뒤로 갈 폴더가 없습니다.");
+            }
+        }
     }
 }
