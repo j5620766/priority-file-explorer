@@ -23,6 +23,10 @@ namespace priority_file_explorer_
         public Form1()
         {
             InitializeComponent();
+
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;  // 한 줄씩 아래로 출력
+            flowLayoutPanel1.WrapContents = false;                   // 줄 바꿈 없음
+            flowLayoutPanel1.AutoScroll = true;
         }
 
         // FlowLayoutPanel1(메인 패널) 위로 드래그된 데이터가 파일인지 아닌지 체크
@@ -84,20 +88,27 @@ namespace priority_file_explorer_
 
         void AddClickHandler(Control parent, EventHandler handler)
         {
-            parent.Click += handler;  // 부모 컨트롤에도 클릭 이벤트 추가
+            parent.Click += handler;
 
             foreach (Control child in parent.Controls)
             {
-                child.Click += handler;  // 자식 컨트롤에도 클릭 이벤트 추가
+                // 자식 컨트롤도 클릭 이벤트 달고
+                child.Click += handler;
+
+                // 자식의 자식이 있다면 → 재귀적으로 계속 연결
+                if (child.HasChildren)
+                {
+                    AddClickHandler(child, handler);
+                }
             }
         }
-        void AddDoubleClickHandler(Control parent, EventHandler handler)
+        void AddMouseDoubleClickHandler(Control parent, MouseEventHandler handler)
         {
-            parent.DoubleClick += handler;  // 부모 컨트롤에도 클릭 이벤트 추가
+            parent.MouseDoubleClick += handler;
 
             foreach (Control child in parent.Controls)
             {
-                child.DoubleClick += handler;  // 자식 컨트롤에도 클릭 이벤트 추가
+                AddMouseDoubleClickHandler(child, handler);
             }
         }
 
@@ -125,78 +136,85 @@ namespace priority_file_explorer_
         private Panel CreateFilePanel(string file)
         {
             PictureBox pb = CreateThumbnail(file);
-            Label lbl = CreateFileLabel(file);
+            Panel infoPanel = CreateFileInfoPanel(file);
 
             Panel panel = new Panel();
+            panel.Width = flowLayoutPanel1.Width - 2; // 스크롤바 감안해서 너비 맞춤
+            panel.Height = 26;
+            panel.Margin = new Padding(2);
+            panel.BackColor = Color.Transparent;
 
-            panel.Width = 70;
-            panel.Height = 100;
-            panel.Margin = new Padding(5);
+            // 썸네일 좌측 정렬
+            pb.Size = new Size(20, 20);
+            pb.Location = new Point(8, 4);
 
-            pb.Location = new Point(3, 0);
-            lbl.Location = new Point(0, 68);
+            // 파일 정보 라벨 출력
+            infoPanel.Location = new Point(40, 6);
 
             panel.Controls.Add(pb);
-            panel.Controls.Add(lbl);
+            panel.Controls.Add(infoPanel);
 
-            
-            // 더블클릭 시 파일 실행
-            EventHandler doubleClickHandler = (s, e) =>
+            // 더블클릭: 폴더 탐색 / 파일 실행
+            MouseEventHandler doubleClickHandler = (s, e) =>
             {
-                string path = (string)((Control)s).Tag;
+                Control clicked = (Control)s;
 
-                if (Directory.Exists(path))  // 폴더일 경우
+                // 상위로 올라가서 filePanel 찾기
+                while (clicked != null && !(clicked.Parent is FlowLayoutPanel))
+                    clicked = clicked.Parent;
+
+                if (clicked is Panel filePanel)
                 {
-                    NavigateToFolder(path); //  내부 탐색 함수 호출
-                }
-                else if (System.IO.File.Exists(path))  // 파일일 경우
-                {
-                    try
+                    string path = filePanel.Tag as string;
+
+                    if (Directory.Exists(path))
                     {
-                        var psi = new ProcessStartInfo(file)
+                        NavigateToFolder(path);
+                    }
+                    else if (System.IO.File.Exists(path))
+                    {
+                        try
                         {
-                            UseShellExecute = true
-                        };
-                        Process.Start(psi);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("파일 실행 실패: " + ex.Message);
+                            var psi = new ProcessStartInfo(path) { UseShellExecute = true };
+                            Process.Start(psi);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("파일 실행 실패: " + ex.Message);
+                        }
                     }
                 }
             };
 
-            // 파일 클릭 시 해당 파일 색깔 변경
-            EventHandler clickHandler = (s, ev) =>
+            // 클릭: 배경 강조
+            EventHandler clickHandler = (s, e) =>
             {
-                try
+                Control clicked = (Control)s;
+
+                // 최상위 filePanel을 찾는다: flowLayoutPanel1 바로 아래에 있는 Panel
+                while (clicked != null && !(clicked.Parent is FlowLayoutPanel))
                 {
-                    Control clickedControl = (Control)s;
-
-                    Panel parentPanel = clickedControl as Panel ?? clickedControl.Parent as Panel;
-
-                    if (parentPanel == null)
-                        return;
-
-                    if (selectedPanel != null && selectedPanel != parentPanel)  // 이전에 클릭한 파일 색깔 복원
-                    {
-                        selectedPanel.BackColor = Color.Transparent;
-                    }
-
-                    parentPanel.BackColor = Color.LightBlue;
-                    selectedPanel = parentPanel;
-
+                    clicked = clicked.Parent;
                 }
-                catch (Exception ex)
+
+                if (clicked != null)
                 {
-                    MessageBox.Show("클릭 실패: " + ex.Message);
+                    // 선택 효과 처리
+                    if (selectedPanel != null && selectedPanel != clicked)
+                        selectedPanel.BackColor = Color.Transparent;
+
+                    clicked.BackColor = Color.LightBlue;
+                    selectedPanel = clicked as Panel;
                 }
             };
-            AddDoubleClickHandler(panel, doubleClickHandler);
+
+            panel.Tag = file; // 반드시 필요!
+            AddMouseDoubleClickHandler(panel, doubleClickHandler);
             AddClickHandler(panel, clickHandler);
 
             return panel;
         }
+
 
         // 파일의 썸네일 생성
         private PictureBox CreateThumbnail(string file)
@@ -235,19 +253,49 @@ namespace priority_file_explorer_
         }
 
         // 파일의 이름 생성
-        private Label CreateFileLabel(string file)
+        private Panel CreateFileInfoPanel(string path)
         {
-            Label lbl = new Label();
-            lbl.Text = Path.GetFileName(file);
-            lbl.TextAlign = ContentAlignment.MiddleCenter;
-            lbl.AutoSize = false;
-            lbl.Width = 64;
-            lbl.Height = 30;
-            lbl.MaximumSize = new Size(64, 40);
-            lbl.Font = new Font("맑은 고딕", 8);
-            lbl.ForeColor = Color.Black;
-            return lbl;
+            FileInfo fileInfo = new FileInfo(path);
+
+            Panel infoPanel = new Panel();
+            infoPanel.Height = 30;
+            infoPanel.Width = 800;
+            infoPanel.BackColor = Color.Transparent;
+
+            // 이름
+            Label nameLabel = new Label();
+            nameLabel.Text = Path.GetFileName(path);
+            nameLabel.SetBounds(0, -6, 260, 30);
+            nameLabel.TextAlign = ContentAlignment.MiddleLeft;
+
+            // 날짜
+            Label dateLabel = new Label();
+            dateLabel.Text = fileInfo.Exists ? fileInfo.LastWriteTime.ToString("yyyy-MM-dd HH:mm") : "";
+            dateLabel.SetBounds(270, -6, 140, 30);
+            dateLabel.TextAlign = ContentAlignment.MiddleLeft;
+
+            // 유형
+            Label typeLabel = new Label();
+            typeLabel.Text = Directory.Exists(path) ? "파일 폴더" : fileInfo.Extension.ToUpper() + " 파일";
+            typeLabel.SetBounds(430, -6, 100, 30);
+            typeLabel.TextAlign = ContentAlignment.MiddleLeft;
+
+            // 크기
+            Label sizeLabel = new Label();
+            sizeLabel.Text = Directory.Exists(path) ? "" : GetSizeText(fileInfo.Length);
+            sizeLabel.SetBounds(560, -6, 90, 30);
+            sizeLabel.TextAlign = ContentAlignment.MiddleRight;
+
+            // 추가
+            infoPanel.Controls.Add(nameLabel);
+            infoPanel.Controls.Add(dateLabel);
+            infoPanel.Controls.Add(typeLabel);
+            infoPanel.Controls.Add(sizeLabel);
+
+            return infoPanel;
         }
+
+
 
         private void NavigateToFolder(string path, bool addToHistory = true)
         {
@@ -297,5 +345,14 @@ namespace priority_file_explorer_
                 MessageBox.Show("더 이상 뒤로 갈 폴더가 없습니다.");
             }
         }
+
+        private string GetSizeText(long bytes)
+        {
+            if (bytes < 1024) return $"{bytes} B";
+            if (bytes < 1024 * 1024) return $"{(bytes / 1024.0):F1} KB";
+            return $"{(bytes / (1024.0 * 1024)):F1} MB";
+        }
+
+        
     }
 }
