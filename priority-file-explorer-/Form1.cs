@@ -18,7 +18,7 @@ namespace priority_file_explorer_
         private Stack<string> pathHistory = new Stack<string>();
         private string currentPath = "";
         private Panel selectedPanel = null;
-        private List<string> virtualRootEntries = new List<string>();
+        private List<string> virtualRootEntries = new List<string>();   // 맨 처음 화면
 
         public Form1()
         {
@@ -57,7 +57,7 @@ namespace priority_file_explorer_
                 return;
             }
 
-            //  맨 처음만 VIRTUAL_ROOT 설정
+            //  맨 처음화면의 주소를 VIRTUAL_ROOT로 설정
             if (string.IsNullOrEmpty(currentPath))
             {
                 currentPath = "VIRTUAL_ROOT";
@@ -117,17 +117,39 @@ namespace priority_file_explorer_
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "파일 열기";
-            openFileDialog.Filter = "모든 파일 (*.*)|*.*"; // 파일 필터 설정 (예: 텍스트 파일만 보여주고 싶으면 "텍스트 파일 (*.txt)|*.txt")
+            openFileDialog.Filter = "모든 파일 (*.*)|*.*";
             openFileDialog.Multiselect = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string[] files = openFileDialog.FileNames;
 
-                foreach (string file in files)
+                // VIRTUAL_ROOT 상태일 경우 따로 처리
+                if (string.IsNullOrEmpty(currentPath))
                 {
-                    flowLayoutPanel1.Controls.Add(CreateFilePanel(file));
+                    currentPath = "VIRTUAL_ROOT";
+                    pathHistory.Clear();
+                    virtualRootEntries = new List<string>();
+                    flowLayoutPanel1.Controls.Clear();
 
+                    foreach (string file in files)
+                    {
+                        if ((System.IO.File.Exists(file) || Directory.Exists(file)) && !virtualRootEntries.Contains(file))
+                        {
+                            virtualRootEntries.Add(file);
+                            flowLayoutPanel1.Controls.Add(CreateFilePanel(file));
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (string file in files)
+                    {
+                        if (System.IO.File.Exists(file) || Directory.Exists(file))
+                        {
+                            flowLayoutPanel1.Controls.Add(CreateFilePanel(file));
+                        }
+                    }
                 }
             }
         }
