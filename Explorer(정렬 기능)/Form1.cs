@@ -477,7 +477,13 @@ class ListViewItemComparer : IComparer
         var a = x as ListViewItem;
         var b = y as ListViewItem;
 
-        int result;
+        int priA = 0, priB = 0;
+        int.TryParse(a.SubItems[3].Text, out priA);
+        int.TryParse(b.SubItems[3].Text, out priB);
+
+        int result = priB.CompareTo(priA); // 우선순위는 내림차순으로 정렬
+        if (result != 0) return result; // 우선순위가 다르면 그걸로 정렬
+
         switch (col)
         {
             case 1: // 크기
@@ -492,13 +498,6 @@ class ListViewItemComparer : IComparer
                 DateTime.TryParse(a.SubItems[col].Text, out timeA);
                 DateTime.TryParse(b.SubItems[col].Text, out timeB);
                 result = timeA.CompareTo(timeB);
-                break;
-
-            case 3: // 우선순위
-                int priA = 0, priB = 0;
-                int.TryParse(a.SubItems[col].Text, out priA);
-                int.TryParse(b.SubItems[col].Text, out priB);
-                result = priA.CompareTo(priB);
                 break;
 
             default: // 이름 (대/소문자 무시)
