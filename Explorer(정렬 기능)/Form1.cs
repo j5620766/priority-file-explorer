@@ -340,6 +340,10 @@ namespace Explorer
                             selectedItem.BackColor = Color.Yellow; // 우선순위 항목은 노란색으로 강조 표시
                         else
                             selectedItem.BackColor = Color.White; // 우선순위 0이면 강조 해제
+
+                        // 우선 순위 설정 시 정렬 즉시 적용
+                        listView1.ListViewItemSorter = new ListViewItemComparer(sortColumn, sortAscending); 
+                        listView1.Sort();
                     }
                     else
                     {
@@ -351,6 +355,7 @@ namespace Explorer
                     MessageBox.Show("잘못 입력하셨습니다.");
                 }
             }
+
         }
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
@@ -483,6 +488,10 @@ class ListViewItemComparer : IComparer
 
         int result = priB.CompareTo(priA); // 우선순위는 내림차순으로 정렬
         if (result != 0) return result; // 우선순위가 다르면 그걸로 정렬
+
+        // 선택된 열이 없을 경우 우선순위만 적용
+        if (col == -1)
+            return 0;
 
         switch (col)
         {
