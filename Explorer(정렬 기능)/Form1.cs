@@ -483,8 +483,10 @@ class ListViewItemComparer : IComparer
         var b = y as ListViewItem;
 
         int priA = 0, priB = 0;
-        int.TryParse(a.SubItems[3].Text, out priA);
-        int.TryParse(b.SubItems[3].Text, out priB);
+        if (a.SubItems.Count >= 4)
+            int.TryParse(a.SubItems[3].Text, out priA);
+        if (b.SubItems.Count >= 4)
+            int.TryParse(b.SubItems[3].Text, out priB);
 
         int result = priB.CompareTo(priA); // 우선순위는 내림차순으로 정렬
         if (result != 0) return result; // 우선순위가 다르면 그걸로 정렬
