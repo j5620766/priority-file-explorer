@@ -14,7 +14,14 @@ namespace Finder
 {
     public partial class Form1 : Form
     {
-        
+
+        private void ClearViewChecks()
+        {
+            mnuDetail.Checked = false;
+            mnuList.Checked = false;
+            mnuSmall.Checked = false;
+            mnuLarge.Checked = false;
+        }
 
         public Form1()
         {
@@ -22,7 +29,7 @@ namespace Finder
             this.Load += new System.EventHandler(this.Form1_Load);
             this.trvDir.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.trvDir_BeforeExpand);
             this.trvDir.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.trvDir_BeforeSelect);
-            
+
         }
 
         // 2) Form1_Load: 폼 로드 시 논리 드라이브(예: C:\, D:\)를 트리뷰에 추가
@@ -35,7 +42,7 @@ namespace Finder
 
             foreach (string Drv in Drv_list)
             {// 트리뷰 최상위에 드라이브 노드 추가
-                root = trvDir.Nodes.Add(Drv); 
+                root = trvDir.Nodes.Add(Drv);
                 root.ImageIndex = 2;
 
                 if (trvDir.SelectedNode == null)
@@ -78,7 +85,7 @@ namespace Finder
             }
         }
 
-        
+
         /// trvDir.Nodes 전체를 재귀 탐색해서 FullPath가 path와 일치하는 TreeNode를 반환      
         private TreeNode FindNodeByPath(TreeNodeCollection nodes, string path)
         {
@@ -116,17 +123,39 @@ namespace Finder
                 }
                 else
                 {
-                    // 없으면 부모 노드 찾아서 새로 추가
+                    //부모 경로에서 새로 추가할지 말지 결정 ==> 이미 똑같은 이름의 폴더가 있다면, 추가하지 않기 위해서
                     string parent = Path.GetDirectoryName(fullPath);
                     TreeNode pnode = FindNodeByPath(trvDir.Nodes, parent);
                     if (pnode != null)
                     {
-                        TreeNode node = pnode.Nodes.Add(Path.GetFileName(fullPath));
-                        setPlus(node);
-                        trvDir.SelectedNode = node;
-                        node.Expand();
+                        string nodeName = Path.GetFileName(fullPath);
+                        // 같은 이름의 노드가 있는지 확인
+
+                        var existing = pnode.Nodes.Cast<TreeNode>()
+                            .FirstOrDefault(n => string.Equals(n.Text, nodeName, StringComparison.InvariantCultureIgnoreCase));
+                        if (existing != null)
+                        {
+                            target = existing;
+                        }
+                        else
+                        {
+                            target = pnode.Nodes.Add(nodeName);
+                            setPlus(target);
+                        }
+
+                        trvDir.SelectedNode = target;
+                        target.Expand();
                         trvDir.Focus();
                     }
+
+                    /* if (pnode != null)
+                     {
+                         TreeNode node = pnode.Nodes.Add(Path.GetFileName(fullPath));
+                         setPlus(node);
+                         trvDir.SelectedNode = node;
+                         node.Expand();
+                         trvDir.Focus();
+                     }*/
                 }
                 // txtPath도 실제 선택된 폴더로 갱신
                 txtPath.Text = fullPath;
@@ -154,7 +183,7 @@ namespace Finder
                 dir = new DirectoryInfo(path);
                 di = dir.GetDirectories();
 
-                foreach(DirectoryInfo dirs in di)
+                foreach (DirectoryInfo dirs in di)
                 {
                     node = e.Node.Nodes.Add(dirs.Name);
                     setPlus(node); // 하위에 또 “+” 필요하면 추가
@@ -181,7 +210,7 @@ namespace Finder
                 lvwFiles.Items.Clear();
 
                 diarray = di.GetDirectories();
-                foreach(DirectoryInfo tdls in diarray)
+                foreach (DirectoryInfo tdls in diarray)
                 {
                     item = lvwFiles.Items.Add(tdls.Name);
                     item.SubItems.Add("");
@@ -191,7 +220,7 @@ namespace Finder
                 }
 
                 fiArray = di.GetFiles();
-                foreach(FileInfo fls in fiArray)
+                foreach (FileInfo fls in fiArray)
                 {
                     item = lvwFiles.Items.Add(fls.Name);
                     item.SubItems.Add(fls.Length.ToString());
@@ -223,26 +252,30 @@ namespace Finder
 
         private void mnuDetail_Click(object sender, EventArgs e)
         {
-            mnuDetail.Checked=true;
+            ClearViewChecks();
+            mnuDetail.Checked = true;
             lvwFiles.View = View.Details;
         }
 
         private void mnuList_Click(object sender, EventArgs e)
         {
-            mnuList.Checked=true;
+            ClearViewChecks();
+            mnuList.Checked = true;
             lvwFiles.View = View.List;
         }
 
         private void mnuSmall_Click(object sender, EventArgs e)
         {
-            mnuSmall.Checked=true;
-            lvwFiles.View =View.SmallIcon;
+            ClearViewChecks();
+            mnuSmall.Checked = true;
+            lvwFiles.View = View.SmallIcon;
         }
 
         private void mnuLarge_Click(object sender, EventArgs e)
         {
-            mnuLarge.Checked=true;
-            lvwFiles.View=View.LargeIcon;
+            ClearViewChecks();
+            mnuLarge.Checked = true;
+            lvwFiles.View = View.LargeIcon;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

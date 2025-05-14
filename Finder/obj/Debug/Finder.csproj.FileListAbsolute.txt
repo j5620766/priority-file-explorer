@@ -18,3 +18,13 @@ C:\Users\hajac\OneDrive\Basic_Screen\Finder\Finder\obj\Debug\Finder.Form1.resour
 C:\Users\hajac\OneDrive\Basic_Screen\Finder\Finder\obj\Debug\Finder.Properties.Resources.resources
 C:\Users\hajac\OneDrive\Basic_Screen\Finder\Finder\obj\Debug\Finder.csproj.GenerateResource.cache
 C:\Users\hajac\OneDrive\Basic_Screen\Finder\Finder\obj\Debug\Finder.csproj.CoreCompileInputs.cache
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\bin\Debug\Finder.exe.config
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\bin\Debug\Finder.exe
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\bin\Debug\Finder.pdb
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\obj\Debug\Finder.csproj.AssemblyReference.cache
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\obj\Debug\Finder.Form1.resources
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\obj\Debug\Finder.Properties.Resources.resources
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\obj\Debug\Finder.csproj.GenerateResource.cache
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\obj\Debug\Finder.csproj.CoreCompileInputs.cache
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\obj\Debug\Finder.exe
+C:\Users\hajac\Source\Repos\priority-file-explorer\Finder\obj\Debug\Finder.pdb
