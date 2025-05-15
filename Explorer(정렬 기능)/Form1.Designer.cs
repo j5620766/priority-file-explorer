@@ -48,6 +48,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.PriorityOnOff = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -55,28 +56,32 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.PriorityOnOff);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(928, 47);
+            this.panel1.Size = new System.Drawing.Size(1723, 94);
             this.panel1.TabIndex = 0;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(75, 12);
+            this.textBox1.Location = new System.Drawing.Point(139, 24);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(568, 21);
+            this.textBox1.Size = new System.Drawing.Size(1051, 35);
             this.textBox1.TabIndex = 1;
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 18);
+            this.label1.Location = new System.Drawing.Point(22, 36);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 12);
+            this.label1.Size = new System.Drawing.Size(114, 24);
             this.label1.TabIndex = 0;
             this.label1.Text = "전체 경로";
             // 
@@ -86,9 +91,10 @@
             this.panel2.Controls.Add(this.splitter1);
             this.panel2.Controls.Add(this.treeView1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 47);
+            this.panel2.Location = new System.Drawing.Point(0, 94);
+            this.panel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(928, 495);
+            this.panel2.Size = new System.Drawing.Size(1723, 990);
             this.panel2.TabIndex = 0;
             // 
             // listView1
@@ -101,9 +107,10 @@
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.HideSelection = false;
             this.listView1.LargeImageList = this.imageList1;
-            this.listView1.Location = new System.Drawing.Point(124, 0);
+            this.listView1.Location = new System.Drawing.Point(227, 0);
+            this.listView1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(804, 495);
+            this.listView1.Size = new System.Drawing.Size(1496, 990);
             this.listView1.SmallImageList = this.imageList1;
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -124,6 +131,7 @@
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.열기ToolStripMenuItem,
             this.자세히ToolStripMenuItem,
@@ -132,47 +140,47 @@
             this.큰아이콘ToolStripMenuItem,
             this.우선순위설정ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(151, 136);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(241, 232);
             // 
             // 열기ToolStripMenuItem
             // 
             this.열기ToolStripMenuItem.Name = "열기ToolStripMenuItem";
-            this.열기ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.열기ToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
             this.열기ToolStripMenuItem.Text = "열기";
             this.열기ToolStripMenuItem.Click += new System.EventHandler(this.열기ToolStripMenuItem_Click);
             // 
             // 자세히ToolStripMenuItem
             // 
             this.자세히ToolStripMenuItem.Name = "자세히ToolStripMenuItem";
-            this.자세히ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.자세히ToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
             this.자세히ToolStripMenuItem.Text = "자세히";
             this.자세히ToolStripMenuItem.Click += new System.EventHandler(this.mnuView_Click);
             // 
             // 간단히ToolStripMenuItem
             // 
             this.간단히ToolStripMenuItem.Name = "간단히ToolStripMenuItem";
-            this.간단히ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.간단히ToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
             this.간단히ToolStripMenuItem.Text = "간단히";
             this.간단히ToolStripMenuItem.Click += new System.EventHandler(this.mnuView_Click);
             // 
             // 작은아이콘ToolStripMenuItem
             // 
             this.작은아이콘ToolStripMenuItem.Name = "작은아이콘ToolStripMenuItem";
-            this.작은아이콘ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.작은아이콘ToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
             this.작은아이콘ToolStripMenuItem.Text = "작은 아이콘";
             this.작은아이콘ToolStripMenuItem.Click += new System.EventHandler(this.mnuView_Click);
             // 
             // 큰아이콘ToolStripMenuItem
             // 
             this.큰아이콘ToolStripMenuItem.Name = "큰아이콘ToolStripMenuItem";
-            this.큰아이콘ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.큰아이콘ToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
             this.큰아이콘ToolStripMenuItem.Text = "큰 아이콘";
             this.큰아이콘ToolStripMenuItem.Click += new System.EventHandler(this.mnuView_Click);
             // 
             // 우선순위설정ToolStripMenuItem
             // 
             this.우선순위설정ToolStripMenuItem.Name = "우선순위설정ToolStripMenuItem";
-            this.우선순위설정ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.우선순위설정ToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
             this.우선순위설정ToolStripMenuItem.Text = "우선순위 설정";
             this.우선순위설정ToolStripMenuItem.Click += new System.EventHandler(this.우선순위설정ToolStripMenuItem_Click);
             // 
@@ -187,9 +195,10 @@
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(121, 0);
+            this.splitter1.Location = new System.Drawing.Point(221, 0);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 495);
+            this.splitter1.Size = new System.Drawing.Size(6, 990);
             this.splitter1.TabIndex = 2;
             this.splitter1.TabStop = false;
             // 
@@ -199,20 +208,32 @@
             this.treeView1.ImageIndex = 0;
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(121, 495);
+            this.treeView1.Size = new System.Drawing.Size(221, 990);
             this.treeView1.TabIndex = 1;
             this.treeView1.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeExpand);
             this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
             // 
+            // PriorityOnOff
+            // 
+            this.PriorityOnOff.Location = new System.Drawing.Point(1224, 24);
+            this.PriorityOnOff.Name = "PriorityOnOff";
+            this.PriorityOnOff.Size = new System.Drawing.Size(157, 47);
+            this.PriorityOnOff.TabIndex = 2;
+            this.PriorityOnOff.Text = "Priority OFF";
+            this.PriorityOnOff.UseVisualStyleBackColor = true;
+            this.PriorityOnOff.Click += new System.EventHandler(this.PriorityOnOff_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(928, 542);
+            this.ClientSize = new System.Drawing.Size(1723, 1084);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -245,6 +266,7 @@
         private System.Windows.Forms.ToolStripMenuItem 작은아이콘ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 큰아이콘ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 우선순위설정ToolStripMenuItem;
+        private System.Windows.Forms.Button PriorityOnOff;
     }
 }
 
