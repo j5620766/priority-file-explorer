@@ -38,3 +38,13 @@ C:\Users\jwkim\.vscode\test\priority-file-explorer\Explorer(정렬 기능)\obj\D
 C:\Users\jwkim\.vscode\test\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
 C:\Users\jwkim\.vscode\test\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.exe
 C:\Users\jwkim\.vscode\test\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.pdb
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\bin\Debug\Explorer.exe.config
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\bin\Debug\Explorer.exe
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\bin\Debug\Explorer.pdb
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.csproj.AssemblyReference.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.Form1.resources
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.Properties.Resources.resources
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.csproj.GenerateResource.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.exe
+C:\Users\enchupin\.vscode\git\priority-file-explorer\Explorer(정렬 기능)\obj\Debug\Explorer.pdb

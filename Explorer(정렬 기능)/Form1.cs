@@ -56,6 +56,7 @@ namespace Explorer
             listView1.Columns.Add("우선순위", 100);
 
             LoadPriorityData();
+
         }
 
         private void LoadPriorityData()
@@ -344,6 +345,8 @@ namespace Explorer
                         // 우선 순위 설정 시 정렬 즉시 적용
                         listView1.ListViewItemSorter = new ListViewItemComparer(sortColumn, sortAscending, usePri); 
                         listView1.Sort();
+                        // 우선 순위 설정 시 데이터 저장
+                        SavePriorityData();
                     }
                     else
                     {
