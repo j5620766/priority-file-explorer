@@ -19,7 +19,7 @@ namespace Explorer
         string priorityFilePath = "priority.txt"; // bin\Debug에 위치
         private int sortColumn = -1;   // 마지막으로 클릭한 열
         private bool sortAscending = true; // 오름차순 정렬
-
+        private bool usePri = true; // 우선순위 사용 여부
         public Form1()
         {
             InitializeComponent();
@@ -232,7 +232,7 @@ namespace Explorer
                         item.SubItems.Add("0"); // 기본 우선순위
 
                     // 우선순위 항목은 노란색으로 강조 표시
-                    if (priorityInfo.ContainsKey(path) && priorityInfo[path] > 0)
+                    if (priorityInfo.ContainsKey(path) && priorityInfo[path] > 0 && usePri)
                         item.BackColor = Color.Yellow;
 
                 }
@@ -255,7 +255,7 @@ namespace Explorer
                         item.SubItems.Add("0"); // 기본 우선순위
 
                     // 우선순위 항목은 노란색으로 강조 표시
-                    if (priorityInfo.ContainsKey(path) && priorityInfo[path] > 0)
+                    if (priorityInfo.ContainsKey(path) && priorityInfo[path] > 0 && usePri)
                         item.BackColor = Color.Yellow;
                 }
             }
@@ -336,10 +336,14 @@ namespace Explorer
                         priorityInfo[fullPath] = priority;
 
                         // 우선순위 설정 및 수정 시 강조 표시 즉시 적용
-                        if (priority > 0)
+                        if (priority > 0 && usePri)
                             selectedItem.BackColor = Color.Yellow; // 우선순위 항목은 노란색으로 강조 표시
                         else
                             selectedItem.BackColor = Color.White; // 우선순위 0이면 강조 해제
+
+                        // 우선 순위 설정 시 정렬 즉시 적용
+                        listView1.ListViewItemSorter = new ListViewItemComparer(sortColumn, sortAscending, usePri); 
+                        listView1.Sort();
                     }
                     else
                     {
@@ -351,6 +355,7 @@ namespace Explorer
                     MessageBox.Show("잘못 입력하셨습니다.");
                 }
             }
+
         }
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
@@ -364,7 +369,7 @@ namespace Explorer
                 sortAscending = true;
             }
 
-            listView1.ListViewItemSorter = new ListViewItemComparer(sortColumn, sortAscending);
+            listView1.ListViewItemSorter = new ListViewItemComparer(sortColumn, sortAscending, usePri);
             listView1.Sort();
         }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
@@ -431,7 +436,7 @@ namespace Explorer
                     if (priorityInfo.ContainsKey(full))
                     {
                         item.SubItems.Add(priorityInfo[full].ToString());
-                        if (priorityInfo[full] > 0) item.BackColor = Color.Yellow;
+                        if (priorityInfo[full] > 0 && usePri) item.BackColor = Color.Yellow;
                     }
                     else item.SubItems.Add("0");
                 }
@@ -447,7 +452,7 @@ namespace Explorer
                     if (priorityInfo.ContainsKey(full))
                     {
                         item.SubItems.Add(priorityInfo[full].ToString());
-                        if (priorityInfo[full] > 0) item.BackColor = Color.Yellow;
+                        if (priorityInfo[full] > 0 && usePri) item.BackColor = Color.Yellow;
                     }
                     else item.SubItems.Add("0");
                 }
@@ -458,6 +463,31 @@ namespace Explorer
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void PriorityOnOff_Click(object sender, EventArgs e) {
+            if (usePri) {
+                PriorityOnOff.Text = "Priority ON";
+                usePri = false;
+                foreach (ListViewItem item in listView1.Items) {
+                    item.BackColor = Color.White;
+                }
+            }
+            
+            
+            else {
+                PriorityOnOff.Text = "Priority OFF";
+                usePri = true;
+                foreach (ListViewItem item in listView1.Items) {
+                    if (item.SubItems.Count >= 4 && int.TryParse(item.SubItems[3].Text, out int priority))
+                        item.BackColor = priority > 0 ? Color.Yellow : Color.White;
+                }
+            }
+
+
+            listView1.ListViewItemSorter = new ListViewItemComparer(sortColumn, sortAscending, usePri);
+            listView1.Sort();
+
+        }
     }
 }
 
@@ -465,19 +495,34 @@ class ListViewItemComparer : IComparer
 {
     private readonly int col;
     private readonly bool ascending;
+    private readonly bool usePriority;
+    int result;
 
-    public ListViewItemComparer(int column, bool asc)
+    public ListViewItemComparer(int column, bool asc, bool usePri)
     {
         col = column;
         ascending = asc;
+        usePriority = usePri;
     }
 
     public int Compare(object x, object y)
     {
         var a = x as ListViewItem;
         var b = y as ListViewItem;
+        if (usePriority) {
+            int priA = 0, priB = 0;
+            if (a.SubItems.Count >= 4)
+                int.TryParse(a.SubItems[3].Text, out priA);
+            if (b.SubItems.Count >= 4)
+                int.TryParse(b.SubItems[3].Text, out priB);
 
-        int result;
+            result = priB.CompareTo(priA); // 우선순위는 내림차순으로 정렬
+            if (result != 0) return result; // 우선순위가 다르면 그걸로 정렬
+        }
+        // 선택된 열이 없을 경우 우선순위만 적용
+        if (col == -1)
+            return 0;
+        
         switch (col)
         {
             case 1: // 크기
@@ -492,13 +537,6 @@ class ListViewItemComparer : IComparer
                 DateTime.TryParse(a.SubItems[col].Text, out timeA);
                 DateTime.TryParse(b.SubItems[col].Text, out timeB);
                 result = timeA.CompareTo(timeB);
-                break;
-
-            case 3: // 우선순위
-                int priA = 0, priB = 0;
-                int.TryParse(a.SubItems[col].Text, out priA);
-                int.TryParse(b.SubItems[col].Text, out priB);
-                result = priA.CompareTo(priB);
                 break;
 
             default: // 이름 (대/소문자 무시)
