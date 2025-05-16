@@ -19,6 +19,12 @@ namespace priority_file_explorer_
         private string currentPath = "";
         private Panel selectedPanel = null;
         private List<string> virtualRootEntries = new List<string>();   // 맨 처음 화면
+        private string storageFolder = @"C:\MyExplorerData";
+
+        string virtualRootSaveFile = Path.Combine(
+    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+    "MyExplorerData", "virtual_root.txt"
+);
 
         public Form1()
         {
@@ -27,6 +33,45 @@ namespace priority_file_explorer_
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;  // 한 줄씩 아래로 출력
             flowLayoutPanel1.WrapContents = false;                   // 줄 바꿈 없음
             flowLayoutPanel1.AutoScroll = true;
+
+            this.FormClosing += Form1_FormClosing;
+            this.Load += Form1_Load;
+
+            if (!Directory.Exists(storageFolder))
+                Directory.CreateDirectory(storageFolder);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(Path.GetDirectoryName(virtualRootSaveFile)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(virtualRootSaveFile));
+
+                System.IO.File.WriteAllLines(virtualRootSaveFile, virtualRootEntries);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("virtual root 저장 실패: " + ex.Message);
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                if (System.IO.File.Exists(virtualRootSaveFile))
+                {
+                    string[] paths = System.IO.File.ReadAllLines(virtualRootSaveFile);
+                    virtualRootEntries = paths.ToList();
+                    currentPath = "VIRTUAL_ROOT";
+                    NavigateToFolder("VIRTUAL_ROOT", addToHistory: false);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("virtual root 불러오기 실패: " + ex.Message);
+            }
         }
 
         // FlowLayoutPanel1(메인 패널) 위로 드래그된 데이터가 파일인지 아닌지 체크
@@ -42,49 +87,8 @@ namespace priority_file_explorer_
         private void FlowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
             string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-            
-            if (currentPath == "VIRTUAL_ROOT")
-            {
-                foreach (string path in paths)
-                {
-                    if ((System.IO.File.Exists(path) || Directory.Exists(path)) && !virtualRootEntries.Contains(path))
-                    {
-                        virtualRootEntries.Add(path);
-                        flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
-                    }
-                }
-                return;
-            }
-
-            //  맨 처음화면의 주소를 VIRTUAL_ROOT로 설정
-            if (string.IsNullOrEmpty(currentPath))
-            {
-                currentPath = "VIRTUAL_ROOT";
-                pathHistory.Clear();
-                virtualRootEntries = new List<string>(paths);
-                flowLayoutPanel1.Controls.Clear();
-
-                foreach (string path in paths)
-                {
-                    if (System.IO.File.Exists(path) || Directory.Exists(path))
-                    {
-                        flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
-                    }
-                }
-
-                return;
-            }
-
-            foreach (string path in paths)
-            {
-                if (System.IO.File.Exists(path) || Directory.Exists(path))
-                {
-                    flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
-                }
-            }
+            AddFilesToCurrentPath(paths);
         }
-
 
         void AddClickHandler(Control parent, EventHandler handler)
         {
@@ -111,6 +115,15 @@ namespace priority_file_explorer_
                 AddMouseDoubleClickHandler(child, handler);
             }
         }
+        void AddMouseRightClickHandler(Control parent, MouseEventHandler handler)
+        {
+            parent.MouseUp += handler;
+
+            foreach (Control child in parent.Controls)
+            {
+                AddMouseRightClickHandler(child, handler);
+            }
+        }
 
         // FileDialog를 열어 파일 추가
         private void 파일추가ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -122,35 +135,7 @@ namespace priority_file_explorer_
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string[] files = openFileDialog.FileNames;
-
-                // VIRTUAL_ROOT 상태일 경우 따로 처리
-                if (string.IsNullOrEmpty(currentPath))
-                {
-                    currentPath = "VIRTUAL_ROOT";
-                    pathHistory.Clear();
-                    virtualRootEntries = new List<string>();
-                    flowLayoutPanel1.Controls.Clear();
-
-                    foreach (string file in files)
-                    {
-                        if ((System.IO.File.Exists(file) || Directory.Exists(file)) && !virtualRootEntries.Contains(file))
-                        {
-                            virtualRootEntries.Add(file);
-                            flowLayoutPanel1.Controls.Add(CreateFilePanel(file));
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (string file in files)
-                    {
-                        if (System.IO.File.Exists(file) || Directory.Exists(file))
-                        {
-                            flowLayoutPanel1.Controls.Add(CreateFilePanel(file));
-                        }
-                    }
-                }
+                AddFilesToCurrentPath(openFileDialog.FileNames);
             }
         }
 
@@ -230,9 +215,31 @@ namespace priority_file_explorer_
                 }
             };
 
+            MouseEventHandler rightClickHandler = (s, e) =>
+            {
+                if (e.Button != MouseButtons.Right) return;
+
+                Control clicked = (Control)s;
+
+                // 최상위 패널 추적: flowLayoutPanel1 바로 아래에 있는 Panel
+                while (clicked != null && !(clicked.Parent is FlowLayoutPanel))
+                {
+                    clicked = clicked.Parent;
+                }
+
+                if (clicked != null)
+                {
+                    selectedPanel = clicked as Panel;
+
+                    // 우클릭 메뉴 보여주기 (마우스 위치 기준)
+                    rightClickMenu.Show(clicked, clicked.PointToClient(Cursor.Position));
+                }
+            };
+
             panel.Tag = file; // 반드시 필요!
             AddMouseDoubleClickHandler(panel, doubleClickHandler);
             AddClickHandler(panel, clickHandler);
+            AddMouseRightClickHandler(panel, rightClickHandler);
 
             return panel;
         }
@@ -375,6 +382,102 @@ namespace priority_file_explorer_
             return $"{(bytes / (1024.0 * 1024)):F1} MB";
         }
 
-        
+        private void AddFilesToCurrentPath(string[] paths)
+        {
+            if (string.IsNullOrEmpty(currentPath))
+            {
+                currentPath = "VIRTUAL_ROOT";
+                pathHistory.Clear();
+                virtualRootEntries.Clear();
+                flowLayoutPanel1.Controls.Clear();
+
+                foreach (string path in paths)
+                {
+                    if ((System.IO.File.Exists(path) || Directory.Exists(path)) && !virtualRootEntries.Contains(path))
+                    {
+                        virtualRootEntries.Add(path);
+                        flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
+                    }
+                }
+
+                return;
+            }
+
+            if (currentPath == "VIRTUAL_ROOT")
+            {
+                foreach (string path in paths)
+                {
+                    if ((System.IO.File.Exists(path) || Directory.Exists(path)) && !virtualRootEntries.Contains(path))
+                    {
+                        virtualRootEntries.Add(path);
+                        flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
+                    }
+                }
+
+                return;
+            }
+
+            foreach (string path in paths)
+            {
+                if (System.IO.File.Exists(path))
+                {
+                    string fileName = Path.GetFileName(path);
+                    string destPath = Path.Combine(currentPath, fileName);
+
+                    try
+                    {
+                        if (!Directory.Exists(currentPath))
+                            Directory.CreateDirectory(currentPath);
+
+                        System.IO.File.Copy(path, destPath, overwrite: true);
+                        flowLayoutPanel1.Controls.Add(CreateFilePanel(destPath));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"파일 복사 실패: {ex.Message}");
+                    }
+                }
+                else if (Directory.Exists(path))
+                {
+                    flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
+                }
+            }
+        }
+
+        private void 삭제ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (selectedPanel == null) return;
+
+            string path = selectedPanel.Tag as string;
+
+            if (currentPath == "VIRTUAL_ROOT")
+            {
+                // 리스트에서만 제거
+                virtualRootEntries.Remove(path);
+                flowLayoutPanel1.Controls.Remove(selectedPanel);
+            }
+            else
+            {
+                try
+                {
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                        flowLayoutPanel1.Controls.Remove(selectedPanel);
+                    }
+                    else if (Directory.Exists(path))
+                    {
+                        Directory.Delete(path, recursive: true); // 폴더 및 하위 항목 포함 삭제
+                        flowLayoutPanel1.Controls.Remove(selectedPanel);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("삭제 실패: " + ex.Message);
+                }
+            }
+
+            selectedPanel = null;
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.파일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.파일ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,28 +41,31 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.삭제ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.rightClickMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Window;
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.파일ToolStripMenuItem,
             this.파일ToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1489, 33);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(1042, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // 파일ToolStripMenuItem
             // 
             this.파일ToolStripMenuItem.Name = "파일ToolStripMenuItem";
-            this.파일ToolStripMenuItem.Size = new System.Drawing.Size(70, 29);
+            this.파일ToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
             this.파일ToolStripMenuItem.Text = "       ";
             // 
             // 파일ToolStripMenuItem1
@@ -69,13 +73,13 @@
             this.파일ToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.파일추가ToolStripMenuItem});
             this.파일ToolStripMenuItem1.Name = "파일ToolStripMenuItem1";
-            this.파일ToolStripMenuItem1.Size = new System.Drawing.Size(64, 29);
+            this.파일ToolStripMenuItem1.Size = new System.Drawing.Size(43, 22);
             this.파일ToolStripMenuItem1.Text = "파일";
             // 
             // 파일추가ToolStripMenuItem
             // 
             this.파일추가ToolStripMenuItem.Name = "파일추가ToolStripMenuItem";
-            this.파일추가ToolStripMenuItem.Size = new System.Drawing.Size(192, 34);
+            this.파일추가ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.파일추가ToolStripMenuItem.Text = "파일 추가";
             this.파일추가ToolStripMenuItem.Click += new System.EventHandler(this.파일추가ToolStripMenuItem_Click);
             // 
@@ -83,9 +87,10 @@
             // 
             this.flowLayoutPanel1.AllowDrop = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 68);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 45);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1489, 808);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1042, 539);
             this.flowLayoutPanel1.TabIndex = 2;
             this.flowLayoutPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.FlowLayoutPanel1_DragDrop);
             this.flowLayoutPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.FlowLayoutPanel1_DragEnter);
@@ -97,8 +102,9 @@
             // btn_back
             // 
             this.btn_back.Location = new System.Drawing.Point(0, 0);
+            this.btn_back.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(74, 33);
+            this.btn_back.Size = new System.Drawing.Size(52, 22);
             this.btn_back.TabIndex = 0;
             this.btn_back.Text = "←";
             this.btn_back.UseVisualStyleBackColor = true;
@@ -113,63 +119,86 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, 39);
+            this.panel1.Location = new System.Drawing.Point(0, 26);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1489, 34);
+            this.panel1.Size = new System.Drawing.Size(1042, 23);
             this.panel1.TabIndex = 0;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(930, 8);
+            this.label4.Location = new System.Drawing.Point(651, 5);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 18);
+            this.label4.Size = new System.Drawing.Size(29, 12);
             this.label4.TabIndex = 4;
             this.label4.Text = "크기";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(675, 8);
+            this.label3.Location = new System.Drawing.Point(472, 5);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 18);
+            this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 3;
             this.label3.Text = "유형";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(441, 8);
+            this.label2.Location = new System.Drawing.Point(309, 5);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 18);
+            this.label2.Size = new System.Drawing.Size(69, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "수정한 날짜";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 8);
+            this.label1.Location = new System.Drawing.Point(15, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 18);
+            this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 1;
             this.label1.Text = "이름";
             // 
+            // rightClickMenu
+            // 
+            this.rightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.삭제ToolStripMenuItem});
+            this.rightClickMenu.Name = "rightClickMenu";
+            this.rightClickMenu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // 삭제ToolStripMenuItem
+            // 
+            this.삭제ToolStripMenuItem.Name = "삭제ToolStripMenuItem";
+            this.삭제ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.삭제ToolStripMenuItem.Text = "삭제";
+            this.삭제ToolStripMenuItem.Click += new System.EventHandler(this.삭제ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1489, 874);
+            this.ClientSize = new System.Drawing.Size(1042, 583);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_back);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.rightClickMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,6 +218,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ContextMenuStrip rightClickMenu;
+        private System.Windows.Forms.ToolStripMenuItem 삭제ToolStripMenuItem;
     }
 }
 
