@@ -15,7 +15,11 @@ namespace Explorer
     public partial class Form1 : Form
     {
         Dictionary<string, int> priorityInfo = new Dictionary<string, int>();
+
+        bool is_highlighted;
+
         string priorityFilePath = "priority.txt"; // bin\Debug에 위치
+        string highlightFilePath = "highlight.txt"; // bin\Debug에 위치
 
         public Form1()
         {
@@ -55,6 +59,7 @@ namespace Explorer
             this.KeyPreview = true; // 키 입력 감지를 위해 활성화
 
             LoadPriorityData();
+            LoadHighlightInfo();
         }
 
         private void LoadPriorityData()
@@ -72,18 +77,33 @@ namespace Explorer
                     if (parts.Length == 2)
                     {
                         string path = parts[0];
-                        int priority;
 
-                        if (int.TryParse(parts[1], out priority))
+                        if (int.TryParse(parts[1], out int priority))
                             priorityInfo[path] = priority;
                     }
                 }
             }
         }
 
+        private void LoadHighlightInfo()
+        {
+            if (File.Exists(highlightFilePath))
+            {
+                string info = File.ReadAllText(highlightFilePath).Trim().ToLower();
+
+                if (info == "true")
+                    is_highlighted = true;
+                else
+                    is_highlighted = false;
+
+                우선순위강조ToolStripMenuItem.Checked = is_highlighted;
+            }
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SavePriorityData();
+            SaveHighlightInfo();
         }
 
         private void SavePriorityData()
@@ -101,6 +121,11 @@ namespace Explorer
                     }
                 }
             }
+        }
+
+        private void SaveHighlightInfo()
+        {
+            File.WriteAllText(highlightFilePath, is_highlighted.ToString());
         }
 
         // 트리뷰에서 실행
@@ -230,9 +255,7 @@ namespace Explorer
                     else
                         item.SubItems.Add("0"); // 기본 우선순위
 
-                    // 우선순위 항목은 노란색으로 강조 표시
-                    if (priorityInfo.ContainsKey(path) && priorityInfo[path] > 0)
-                        item.BackColor = Color.Yellow;
+                    PriorityHighlight();
 
                 }
 
@@ -253,9 +276,7 @@ namespace Explorer
                     else
                         item.SubItems.Add("0"); // 기본 우선순위
 
-                    // 우선순위 항목은 노란색으로 강조 표시
-                    if (priorityInfo.ContainsKey(path) && priorityInfo[path] > 0)
-                        item.BackColor = Color.Yellow;
+                    PriorityHighlight();
                 }
             }
             catch (Exception ex)
@@ -293,11 +314,11 @@ namespace Explorer
                     간단히ToolStripMenuItem.Checked = true;
                     listView1.View = View.List;
                     break;
-                case "작은아이콘":
+                case "작은 아이콘":
                     작은아이콘ToolStripMenuItem.Checked = true;
                     listView1.View = View.SmallIcon;
                     break;
-                case "큰아이콘":
+                case "큰 아이콘":
                     큰아이콘ToolStripMenuItem.Checked = true;
                     listView1.View = View.LargeIcon;
                     break;
@@ -320,9 +341,7 @@ namespace Explorer
                 if (input == "")
                     return;
 
-                int priority;
-
-                if (int.TryParse(input, out priority))
+                if (int.TryParse(input, out int priority))
                 {
                     if (priority >= 0 && priority <= 100)
                     {
@@ -335,7 +354,7 @@ namespace Explorer
                         priorityInfo[fullPath] = priority;
 
                         // 우선순위 설정 및 수정 시 강조 표시 즉시 적용
-                        if (priority > 0)
+                        if (is_highlighted && priority > 0)
                             selectedItem.BackColor = Color.Yellow; // 우선순위 항목은 노란색으로 강조 표시
                         else
                             selectedItem.BackColor = Color.White; // 우선순위 0이면 강조 해제
@@ -354,11 +373,38 @@ namespace Explorer
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            // 파일 선택 후 P 키를 누르면 즉시 우선순위 설정 가능
             if (e.KeyCode == Keys.P)
-            {
                 if (listView1.Focused || listView1.ContainsFocus)
-                {
                     우선순위설정ToolStripMenuItem_Click(sender, e);
+        }
+
+        private void 우선순위강조ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            item.Checked = !item.Checked;
+            is_highlighted = item.Checked;
+
+            PriorityHighlight();
+        }
+
+        private void PriorityHighlight()
+        {
+            foreach (ListViewItem item in listView1.Items)
+            {
+                if (item.SubItems.Count >= 4)
+                {
+                    if (int.TryParse(item.SubItems[3].Text, out int priority))
+                    {
+                        item.UseItemStyleForSubItems = false;
+
+                        if (is_highlighted && priority > 0)
+                            foreach (ListViewItem.ListViewSubItem sub in item.SubItems)
+                                sub.BackColor = Color.Yellow;
+                        else
+                            foreach (ListViewItem.ListViewSubItem sub in item.SubItems)
+                                sub.BackColor = Color.White;
+                    }
                 }
             }
         }

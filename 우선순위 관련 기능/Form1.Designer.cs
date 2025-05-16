@@ -48,6 +48,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.우선순위강조ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -128,49 +129,50 @@
             this.간단히ToolStripMenuItem,
             this.작은아이콘ToolStripMenuItem,
             this.큰아이콘ToolStripMenuItem,
-            this.우선순위설정ToolStripMenuItem});
+            this.우선순위설정ToolStripMenuItem,
+            this.우선순위강조ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(151, 136);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 180);
             // 
             // 열기ToolStripMenuItem
             // 
             this.열기ToolStripMenuItem.Name = "열기ToolStripMenuItem";
-            this.열기ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.열기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.열기ToolStripMenuItem.Text = "열기";
             this.열기ToolStripMenuItem.Click += new System.EventHandler(this.열기ToolStripMenuItem_Click);
             // 
             // 자세히ToolStripMenuItem
             // 
             this.자세히ToolStripMenuItem.Name = "자세히ToolStripMenuItem";
-            this.자세히ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.자세히ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.자세히ToolStripMenuItem.Text = "자세히";
             this.자세히ToolStripMenuItem.Click += new System.EventHandler(this.mnuView_Click);
             // 
             // 간단히ToolStripMenuItem
             // 
             this.간단히ToolStripMenuItem.Name = "간단히ToolStripMenuItem";
-            this.간단히ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.간단히ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.간단히ToolStripMenuItem.Text = "간단히";
             this.간단히ToolStripMenuItem.Click += new System.EventHandler(this.mnuView_Click);
             // 
             // 작은아이콘ToolStripMenuItem
             // 
             this.작은아이콘ToolStripMenuItem.Name = "작은아이콘ToolStripMenuItem";
-            this.작은아이콘ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.작은아이콘ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.작은아이콘ToolStripMenuItem.Text = "작은 아이콘";
             this.작은아이콘ToolStripMenuItem.Click += new System.EventHandler(this.mnuView_Click);
             // 
             // 큰아이콘ToolStripMenuItem
             // 
             this.큰아이콘ToolStripMenuItem.Name = "큰아이콘ToolStripMenuItem";
-            this.큰아이콘ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.큰아이콘ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.큰아이콘ToolStripMenuItem.Text = "큰 아이콘";
             this.큰아이콘ToolStripMenuItem.Click += new System.EventHandler(this.mnuView_Click);
             // 
             // 우선순위설정ToolStripMenuItem
             // 
             this.우선순위설정ToolStripMenuItem.Name = "우선순위설정ToolStripMenuItem";
-            this.우선순위설정ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.우선순위설정ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.우선순위설정ToolStripMenuItem.Text = "우선순위 설정";
             this.우선순위설정ToolStripMenuItem.Click += new System.EventHandler(this.우선순위설정ToolStripMenuItem_Click);
             // 
@@ -203,6 +205,13 @@
             this.treeView1.TabIndex = 1;
             this.treeView1.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeExpand);
             this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
+            // 
+            // 우선순위강조ToolStripMenuItem
+            // 
+            this.우선순위강조ToolStripMenuItem.Name = "우선순위강조ToolStripMenuItem";
+            this.우선순위강조ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.우선순위강조ToolStripMenuItem.Text = "우선순위 강조";
+            this.우선순위강조ToolStripMenuItem.Click += new System.EventHandler(this.우선순위강조ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -244,6 +253,7 @@
         private System.Windows.Forms.ToolStripMenuItem 작은아이콘ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 큰아이콘ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 우선순위설정ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 우선순위강조ToolStripMenuItem;
     }
 }
 

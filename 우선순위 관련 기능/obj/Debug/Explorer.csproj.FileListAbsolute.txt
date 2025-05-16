@@ -48,3 +48,13 @@ C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기
 C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
 C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.exe
 C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.pdb
+C:\Git\priority-file-explorer\우선순위 관련 기능\bin\Debug\Explorer.exe.config
+C:\Git\priority-file-explorer\우선순위 관련 기능\bin\Debug\Explorer.exe
+C:\Git\priority-file-explorer\우선순위 관련 기능\bin\Debug\Explorer.pdb
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.csproj.AssemblyReference.cache
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.Form1.resources
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.Properties.Resources.resources
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.csproj.GenerateResource.cache
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.exe
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.pdb
