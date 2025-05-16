@@ -1,0 +1,6 @@
+C:\Projects\HW2_2020203026,1
+C:\Projects\Practice,0
+C:\Projects\고급프로그래밍,0
+C:\Projects\응용소프트웨어실습,0
+C:\Projects\자료구조,3
+C:\Projects\컴퓨터구조,0
