@@ -335,7 +335,7 @@ namespace Explorer
                 string input = Microsoft.VisualBasic.Interaction.InputBox(
                     "우선순위를 입력하세요. (0~100)",
                     "우선순위 설정",
-                    selectedItem.SubItems.Count > 3 ? selectedItem.SubItems[3].Text : "0");
+                    selectedItem.SubItems.Count >= 4 ? selectedItem.SubItems[3].Text : "0");
 
                 // 취소를 누르거나 아무것도 입력하지 않고 확인을 눌렀을 때 그냥 종료
                 if (input == "")
@@ -353,11 +353,15 @@ namespace Explorer
                         string fullPath = textBox1.Text + "\\" + selectedItem.Text;
                         priorityInfo[fullPath] = priority;
 
+                        selectedItem.UseItemStyleForSubItems = false;
+
                         // 우선순위 설정 및 수정 시 강조 표시 즉시 적용
                         if (is_highlighted && priority > 0)
-                            selectedItem.BackColor = Color.Yellow; // 우선순위 항목은 노란색으로 강조 표시
+                            foreach (ListViewItem.ListViewSubItem sub in selectedItem.SubItems)
+                                sub.BackColor = Color.Yellow; // 우선순위 항목은 노란색으로 강조 표시
                         else
-                            selectedItem.BackColor = Color.White; // 우선순위 0이면 강조 해제
+                            foreach (ListViewItem.ListViewSubItem sub in selectedItem.SubItems)
+                                sub.BackColor = Color.White; // 우선순위 0이면 강조 해제
                     }
                     else
                     {
@@ -405,6 +409,32 @@ namespace Explorer
                             foreach (ListViewItem.ListViewSubItem sub in item.SubItems)
                                 sub.BackColor = Color.White;
                     }
+                }
+            }
+        }
+
+        private void 우선순위초기화ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("모든 우선순위를 초기화하시겠습니까?", "확인",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                priorityInfo.Clear();
+
+                File.WriteAllText(priorityFilePath, ""); // "priorty.txt" 파일 초기화
+
+                foreach (ListViewItem item in listView1.Items)
+                {
+                    if (item.SubItems.Count >= 4)
+                        item.SubItems[3].Text = "0"; // 우선순위 초기화
+                    else
+                        item.SubItems.Add("0");
+
+                    item.UseItemStyleForSubItems = false;
+
+                    foreach (ListViewItem.ListViewSubItem sub in item.SubItems)
+                        sub.BackColor = Color.White; // 우선순위 강조 초기화
                 }
             }
         }
