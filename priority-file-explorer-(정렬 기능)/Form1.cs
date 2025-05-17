@@ -616,6 +616,10 @@ namespace priority_file_explorer_
                         selectedPanel.BackColor = Color.Yellow;
                     else
                         selectedPanel.BackColor = Color.Transparent;
+
+
+                    // 우선순위 설정 시 즉시 재정렬
+                    SortFilePanels();
                 }
                 else
                 {
