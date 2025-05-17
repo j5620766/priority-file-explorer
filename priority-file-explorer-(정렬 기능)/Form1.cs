@@ -717,7 +717,13 @@ namespace priority_file_explorer_
                 FileInfo infoA = new FileInfo(pathA);
                 FileInfo infoB = new FileInfo(pathB);
 
-                int cmp = 0;
+                int priA = priorityInfo.ContainsKey(pathA) ? priorityInfo[pathA] : 0;
+                int priB = priorityInfo.ContainsKey(pathB) ? priorityInfo[pathB] : 0;
+
+                int cmp = priB.CompareTo(priA);
+
+                if (cmp != 0)
+                    return cmp;
 
                 switch (currentSortField) {
                     case SortField.Name:
@@ -737,9 +743,7 @@ namespace priority_file_explorer_
                         break;
 
                     case SortField.Priority:
-                        int priA = priorityInfo.ContainsKey(pathA) ? priorityInfo[pathA] : 0;
-                        int priB = priorityInfo.ContainsKey(pathB) ? priorityInfo[pathB] : 0;
-                        cmp = priA.CompareTo(priB);
+                        cmp = 0;
                         break;
                 }
 
@@ -752,6 +756,7 @@ namespace priority_file_explorer_
                 flowLayoutPanel1.Controls.Add(panel);
             flowLayoutPanel1.ResumeLayout();
         }
+
 
         private void label1_Click(object sender, EventArgs e) {
             ToggleSort(SortField.Name);
