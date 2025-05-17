@@ -55,7 +55,6 @@
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Window;
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.파일ToolStripMenuItem,
@@ -194,7 +193,10 @@
             this.우선순위설정ToolStripMenuItem,
             this.우선순위강조ToolStripMenuItem,
             this.우선순위초기화ToolStripMenuItem});
+            this.rightClickMenu.Margin = new System.Windows.Forms.Padding(1);
             this.rightClickMenu.Name = "rightClickMenu";
+            this.rightClickMenu.ShowCheckMargin = true;
+            this.rightClickMenu.ShowImageMargin = false;
             this.rightClickMenu.Size = new System.Drawing.Size(265, 156);
             // 
             // 삭제ToolStripMenuItem

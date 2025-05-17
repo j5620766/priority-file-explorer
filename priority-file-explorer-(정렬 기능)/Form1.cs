@@ -50,6 +50,7 @@ namespace priority_file_explorer_
 
             if (!Directory.Exists(storageFolder))
                 Directory.CreateDirectory(storageFolder);
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -111,6 +112,9 @@ namespace priority_file_explorer_
 
             LoadPriorityData();
             LoadHighlightInfo();
+
+            // 파일 로드 후 즉시 재정렬
+            SortFilePanels();
         }
 
         private void LoadPriorityData()
