@@ -435,6 +435,9 @@ namespace priority_file_explorer_
                             flowLayoutPanel1.Controls.Add(CreateFilePanel(entry));
                         }
                     }
+
+                    PriorityHighlight();
+
                     return;
                 }
 
@@ -443,6 +446,8 @@ namespace priority_file_explorer_
                 {
                     flowLayoutPanel1.Controls.Add(CreateFilePanel(entry));
                 }
+
+                PriorityHighlight();
             }
             catch (Exception ex)
             {
@@ -604,7 +609,6 @@ namespace priority_file_explorer_
                             }
                         }
                     }
-
 
                     // 강조 반영
                     if (is_highlighted && priority > 0)
