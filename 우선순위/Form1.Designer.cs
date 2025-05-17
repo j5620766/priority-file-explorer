@@ -37,13 +37,13 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btn_back = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.rightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.삭제ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label5 = new System.Windows.Forms.Label();
             this.우선순위설정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.우선순위강조ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.우선순위초기화ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,6 +130,16 @@
             this.panel1.Size = new System.Drawing.Size(1042, 23);
             this.panel1.TabIndex = 0;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(775, 5);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "우선순위";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -178,43 +188,33 @@
             this.우선순위강조ToolStripMenuItem,
             this.우선순위초기화ToolStripMenuItem});
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(181, 114);
+            this.rightClickMenu.Size = new System.Drawing.Size(163, 92);
             // 
             // 삭제ToolStripMenuItem
             // 
             this.삭제ToolStripMenuItem.Name = "삭제ToolStripMenuItem";
-            this.삭제ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.삭제ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.삭제ToolStripMenuItem.Text = "삭제";
             this.삭제ToolStripMenuItem.Click += new System.EventHandler(this.삭제ToolStripMenuItem_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(771, 5);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "우선순위";
             // 
             // 우선순위설정ToolStripMenuItem
             // 
             this.우선순위설정ToolStripMenuItem.Name = "우선순위설정ToolStripMenuItem";
-            this.우선순위설정ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.우선순위설정ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.우선순위설정ToolStripMenuItem.Text = "우선순위 설정";
             this.우선순위설정ToolStripMenuItem.Click += new System.EventHandler(this.우선순위설정ToolStripMenuItem_Click);
             // 
             // 우선순위강조ToolStripMenuItem
             // 
             this.우선순위강조ToolStripMenuItem.Name = "우선순위강조ToolStripMenuItem";
-            this.우선순위강조ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.우선순위강조ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.우선순위강조ToolStripMenuItem.Text = "우선순위 강조";
             this.우선순위강조ToolStripMenuItem.Click += new System.EventHandler(this.우선순위강조ToolStripMenuItem_Click);
             // 
             // 우선순위초기화ToolStripMenuItem
             // 
             this.우선순위초기화ToolStripMenuItem.Name = "우선순위초기화ToolStripMenuItem";
-            this.우선순위초기화ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.우선순위초기화ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.우선순위초기화ToolStripMenuItem.Text = "우선순위 초기화";
             this.우선순위초기화ToolStripMenuItem.Click += new System.EventHandler(this.우선순위초기화ToolStripMenuItem_Click);
             // 

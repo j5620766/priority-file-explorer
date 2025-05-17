@@ -28,3 +28,13 @@ C:\Projects\우선순위\obj\Debug\priority-file-explorer-.csproj.GenerateResour
 C:\Projects\우선순위\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
 C:\Projects\우선순위\obj\Debug\priority-file-explorer-.exe
 C:\Projects\우선순위\obj\Debug\priority-file-explorer-.pdb
+C:\Git\priority-file-explorer\우선순위\bin\Debug\priority-file-explorer-.exe.config
+C:\Git\priority-file-explorer\우선순위\bin\Debug\priority-file-explorer-.exe
+C:\Git\priority-file-explorer\우선순위\bin\Debug\priority-file-explorer-.pdb
+C:\Git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.csproj.AssemblyReference.cache
+C:\Git\priority-file-explorer\우선순위\obj\Debug\priority_file_explorer_.Form1.resources
+C:\Git\priority-file-explorer\우선순위\obj\Debug\priority_file_explorer_.Properties.Resources.resources
+C:\Git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.csproj.GenerateResource.cache
+C:\Git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
+C:\Git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.exe
+C:\Git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.pdb
