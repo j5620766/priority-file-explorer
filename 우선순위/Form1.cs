@@ -54,7 +54,7 @@ namespace priority_file_explorer_
                 if (!Directory.Exists(Path.GetDirectoryName(virtualRootSaveFile)))
                     Directory.CreateDirectory(Path.GetDirectoryName(virtualRootSaveFile));
 
-                System.IO.File.WriteAllLines(virtualRootSaveFile, virtualRootEntries);
+                File.WriteAllLines(virtualRootSaveFile, virtualRootEntries);
             }
             catch (Exception ex)
             {
@@ -253,7 +253,7 @@ namespace priority_file_explorer_
                     {
                         NavigateToFolder(path);
                     }
-                    else if (System.IO.File.Exists(path))
+                    else if (File.Exists(path))
                     {
                         try
                         {
@@ -286,9 +286,16 @@ namespace priority_file_explorer_
                         string path = selectedPanel.Tag as string;
 
                         if (is_highlighted && path != null && priorityInfo.ContainsKey(path) && priorityInfo[path] > 0)
-                            selectedPanel.BackColor = Color.Yellow;
+                        {
+                            int priority = priorityInfo[path];
+                            int b = (int)(255 - (priority / 100.0) * 255);
+                            b = Math.Min(200, b);
+                            selectedPanel.BackColor = Color.FromArgb(255, 255, b);
+                        }
                         else
+                        {
                             selectedPanel.BackColor = Color.Transparent;
+                        }
                     }
 
                     clicked.BackColor = Color.LightBlue;
@@ -430,7 +437,7 @@ namespace priority_file_explorer_
                 {
                     foreach (string entry in virtualRootEntries)
                     {
-                        if (System.IO.File.Exists(entry) || Directory.Exists(entry))
+                        if (File.Exists(entry) || Directory.Exists(entry))
                         {
                             flowLayoutPanel1.Controls.Add(CreateFilePanel(entry));
                         }
@@ -486,7 +493,7 @@ namespace priority_file_explorer_
 
                 foreach (string path in paths)
                 {
-                    if ((System.IO.File.Exists(path) || Directory.Exists(path)) && !virtualRootEntries.Contains(path))
+                    if ((File.Exists(path) || Directory.Exists(path)) && !virtualRootEntries.Contains(path))
                     {
                         virtualRootEntries.Add(path);
                         flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
@@ -500,7 +507,7 @@ namespace priority_file_explorer_
             {
                 foreach (string path in paths)
                 {
-                    if ((System.IO.File.Exists(path) || Directory.Exists(path)) && !virtualRootEntries.Contains(path))
+                    if ((File.Exists(path) || Directory.Exists(path)) && !virtualRootEntries.Contains(path))
                     {
                         virtualRootEntries.Add(path);
                         flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
@@ -512,7 +519,7 @@ namespace priority_file_explorer_
 
             foreach (string path in paths)
             {
-                if (System.IO.File.Exists(path))
+                if (File.Exists(path))
                 {
                     string fileName = Path.GetFileName(path);
                     string destPath = Path.Combine(currentPath, fileName);
@@ -522,7 +529,7 @@ namespace priority_file_explorer_
                         if (!Directory.Exists(currentPath))
                             Directory.CreateDirectory(currentPath);
 
-                        System.IO.File.Copy(path, destPath, overwrite: true);
+                        File.Copy(path, destPath, overwrite: true);
                         flowLayoutPanel1.Controls.Add(CreateFilePanel(destPath));
                     }
                     catch (Exception ex)
@@ -553,9 +560,9 @@ namespace priority_file_explorer_
             {
                 try
                 {
-                    if (System.IO.File.Exists(path))
+                    if (File.Exists(path))
                     {
-                        System.IO.File.Delete(path);
+                        File.Delete(path);
                         flowLayoutPanel1.Controls.Remove(selectedPanel);
                     }
                     else if (Directory.Exists(path))
@@ -612,9 +619,15 @@ namespace priority_file_explorer_
 
                     // 강조 반영
                     if (is_highlighted && priority > 0)
-                        selectedPanel.BackColor = Color.Yellow;
+                    {
+                        int b = (int)(255 - (priority / 100.0) * 255);
+                        b = Math.Min(200, b);
+                        selectedPanel.BackColor = Color.FromArgb(255, 255, b);
+                    }
                     else
+                    {
                         selectedPanel.BackColor = Color.Transparent;
+                    }
                 }
                 else
                 {
@@ -646,7 +659,11 @@ namespace priority_file_explorer_
                     int priority = priorityInfo.ContainsKey(path) ? priorityInfo[path] : 0;
 
                     if (is_highlighted && priority > 0)
-                        panel.BackColor = Color.Yellow;
+                    {
+                        int b = (int)(255 - (priority / 100.0) * 255);
+                        b = Math.Min(200, b); // 최소 밝기 확보
+                        panel.BackColor = Color.FromArgb(255, 255, b);
+                    }
                     else
                         panel.BackColor = Color.Transparent;
                 }
