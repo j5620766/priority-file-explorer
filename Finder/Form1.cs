@@ -278,7 +278,7 @@ namespace Finder
             lvwFiles.View = View.LargeIcon;
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private async void btnSearch_Click(object sender, EventArgs e)
         {
             string input = txtSearch.Text.Trim();
             if (string.IsNullOrEmpty(input))
@@ -287,28 +287,79 @@ namespace Finder
                 return;
             }
 
-            string rootPath;
-            string pattern;
-
+            string rootPath, pattern;
             if (Path.IsPathRooted(input) && Directory.Exists(input))
             {
-                // 절대경로 검색
                 rootPath = input;
-                pattern = "";
+                pattern = "*";
             }
             else
             {
-                // 현재 선택된 경로에서 이름 검색
                 rootPath = txtPath.Text;
-                pattern = input;
+                pattern = "*" + input + "*";
             }
 
-            // * 여기서 txtPath를 갱신 *
             txtPath.Text = rootPath;
 
+            // UI 업데이트 잠깐 중지
+            lvwFiles.BeginUpdate();
             lvwFiles.Items.Clear();
-            SearchDirectory(rootPath, pattern);
+
+            // 백그라운드에서 검색 수행
+            var results = await Task.Run(() => GetSearchResults(rootPath, pattern));
+
+            // 검색 결과를 리스트뷰에 채우기
+            foreach (var info in results)
+            {
+                var item = new ListViewItem(info.Name)
+                {
+                    ImageIndex = (info is DirectoryInfo) ? 0 : 1,
+                    Tag = info.FullName
+                };
+                item.SubItems.Add(info is FileInfo fi ? fi.Length.ToString() : "");
+                item.SubItems.Add(info.LastWriteTime.ToString());
+                lvwFiles.Items.Add(item);
+            }
+
+            lvwFiles.EndUpdate();
         }
+        private List<FileSystemInfo> GetSearchResults(string root, string pattern)
+        {
+            var output = new List<FileSystemInfo>();
+            var stack = new Stack<DirectoryInfo>();
+            stack.Push(new DirectoryInfo(root));
+
+            while (stack.Count > 0)
+            {
+                var dir = stack.Pop();
+
+                // 파일 스트리밍
+                try
+                {
+                    foreach (var file in dir.EnumerateFiles(pattern))
+                        output.Add(file);
+                }
+                catch { /* 액세스 거부, TooLong 등 무시 */ }
+
+                // 하위 폴더 스트리밍
+                try
+                {
+                    foreach (var sub in dir.EnumerateDirectories())
+                    {
+                        // 순환 참조 방지: 재분석 지점(링크) 건너뛰기
+                        if ((sub.Attributes & FileAttributes.ReparsePoint) != 0)
+                            continue;
+
+                        output.Add(sub);
+                        stack.Push(sub);
+                    }
+                }
+                catch { /* 액세스 거부, TooLong 등 무시 */ }
+            }
+
+            return output;
+        }
+
 
 
         private void SearchDirectory(string path, string pattern)
