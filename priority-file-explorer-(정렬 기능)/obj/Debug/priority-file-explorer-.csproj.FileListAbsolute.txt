@@ -1,0 +1,50 @@
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.csproj.AssemblyReference.cache
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\obj\Debug\priority_file_explorer_.Form1.resources
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\obj\Debug\priority_file_explorer_.Properties.Resources.resources
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.csproj.GenerateResource.cache
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\bin\Debug\priority-file-explorer-.exe.config
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\bin\Debug\priority-file-explorer-.exe
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\bin\Debug\priority-file-explorer-.pdb
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.exe
+C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.pdb
+C:\Git\priority-file-explorer\priority-file-explorer-\bin\Debug\priority-file-explorer-.exe.config
+C:\Git\priority-file-explorer\priority-file-explorer-\bin\Debug\priority-file-explorer-.exe
+C:\Git\priority-file-explorer\priority-file-explorer-\bin\Debug\priority-file-explorer-.pdb
+C:\Git\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.csproj.AssemblyReference.cache
+C:\Git\priority-file-explorer\priority-file-explorer-\obj\Debug\priority_file_explorer_.Form1.resources
+C:\Git\priority-file-explorer\priority-file-explorer-\obj\Debug\priority_file_explorer_.Properties.Resources.resources
+C:\Git\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.csproj.GenerateResource.cache
+C:\Git\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
+C:\Git\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.exe
+C:\Git\priority-file-explorer\priority-file-explorer-\obj\Debug\priority-file-explorer-.pdb
+C:\Projects\우선순위\bin\Debug\priority-file-explorer-.exe.config
+C:\Projects\우선순위\bin\Debug\priority-file-explorer-.exe
+C:\Projects\우선순위\bin\Debug\priority-file-explorer-.pdb
+C:\Projects\우선순위\obj\Debug\priority-file-explorer-.csproj.AssemblyReference.cache
+C:\Projects\우선순위\obj\Debug\priority_file_explorer_.Form1.resources
+C:\Projects\우선순위\obj\Debug\priority_file_explorer_.Properties.Resources.resources
+C:\Projects\우선순위\obj\Debug\priority-file-explorer-.csproj.GenerateResource.cache
+C:\Projects\우선순위\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
+C:\Projects\우선순위\obj\Debug\priority-file-explorer-.exe
+C:\Projects\우선순위\obj\Debug\priority-file-explorer-.pdb
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\bin\Debug\priority-file-explorer-.exe.config
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\bin\Debug\priority-file-explorer-.exe
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\bin\Debug\priority-file-explorer-.pdb
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.csproj.AssemblyReference.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\obj\Debug\priority_file_explorer_.Form1.resources
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\obj\Debug\priority_file_explorer_.Properties.Resources.resources
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.csproj.GenerateResource.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.exe
+C:\Users\enchupin\.vscode\git\priority-file-explorer\우선순위\obj\Debug\priority-file-explorer-.pdb
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\bin\Debug\priority-file-explorer-.exe.config
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\bin\Debug\priority-file-explorer-.exe
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\bin\Debug\priority-file-explorer-.pdb
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\obj\Debug\priority-file-explorer-.csproj.AssemblyReference.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\obj\Debug\priority_file_explorer_.Form1.resources
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\obj\Debug\priority_file_explorer_.Properties.Resources.resources
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\obj\Debug\priority-file-explorer-.csproj.GenerateResource.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\obj\Debug\priority-file-explorer-.exe
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-(정렬 기능)\obj\Debug\priority-file-explorer-.pdb
