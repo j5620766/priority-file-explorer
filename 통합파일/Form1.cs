@@ -19,6 +19,7 @@ namespace priority_file_explorer_
         private Panel selectedPanel = null;
         private List<string> virtualRootEntries = new List<string>();   // 맨 처음 화면
         private string storageFolder = @"C:\MyExplorerData";
+        private bool usePri = true;
 
         string virtualRootSaveFile = Path.Combine(
     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -734,6 +735,9 @@ namespace priority_file_explorer_
                     }
                 }
             }
+
+            // 재정렬
+            SortFilePanels();
         }
 
         private void ToggleSort(SortField field) {
@@ -763,13 +767,17 @@ namespace priority_file_explorer_
                 FileInfo infoA = new FileInfo(pathA);
                 FileInfo infoB = new FileInfo(pathB);
 
-                int priA = priorityInfo.ContainsKey(pathA) ? priorityInfo[pathA] : 0;
-                int priB = priorityInfo.ContainsKey(pathB) ? priorityInfo[pathB] : 0;
+                int cmp = 0;
 
-                int cmp = priB.CompareTo(priA);
+                if (usePri) {
+                    int priA = priorityInfo.ContainsKey(pathA) ? priorityInfo[pathA] : 0;
+                    int priB = priorityInfo.ContainsKey(pathB) ? priorityInfo[pathB] : 0;
 
-                if (cmp != 0)
-                    return cmp;
+                    cmp = priB.CompareTo(priA);
+
+                    if (cmp != 0)
+                        return cmp;
+                }
 
                 switch (currentSortField)
                 {
@@ -824,10 +832,6 @@ namespace priority_file_explorer_
         {
             ToggleSort(SortField.Size);
         }
-        private void label5_Click(object sender, EventArgs e)
-        {
-            ToggleSort(SortField.Priority);
-        }
 
 
         private void UpdateSortLabels() {
@@ -836,7 +840,6 @@ namespace priority_file_explorer_
             label2.Text = "날짜";
             label3.Text = "유형";
             label4.Text = "크기";
-            label5.Text = "우선순위";
 
             string direction = ascending ? "△" : "▽";
 
@@ -852,9 +855,6 @@ namespace priority_file_explorer_
                     break;
                 case SortField.Size:
                     label4.Text += $" ({direction})";
-                    break;
-                case SortField.Priority:
-                    label5.Text += $" ({direction})";
                     break;
             }
         }
@@ -930,6 +930,19 @@ namespace priority_file_explorer_
                     pathBar.Controls.Add(arrow);
                     x += arrow.Width + 5;
                 }
+            }
+        }
+
+        private void 우선순위정렬ToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (usePri) {
+                우선순위정렬ToolStripMenuItem.Checked = false;
+                usePri = false;
+                SortFilePanels();
+            }
+            else {
+                우선순위정렬ToolStripMenuItem.Checked = true;
+                usePri = true;
+                SortFilePanels();
             }
         }
     }

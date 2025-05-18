@@ -42,6 +42,7 @@
             this.우선순위설정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.우선순위강조ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.우선순위초기화ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.우선순위정렬ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.pathBar = new System.Windows.Forms.Panel();
@@ -55,10 +56,10 @@
             // 
             this.flowLayoutPanel1.AllowDrop = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 67);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 134);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1042, 517);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1935, 1034);
             this.flowLayoutPanel1.TabIndex = 2;
             this.flowLayoutPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.FlowLayoutPanel1_DragDrop);
             this.flowLayoutPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.FlowLayoutPanel1_DragEnter);
@@ -77,30 +78,29 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, 44);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(0, 88);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1042, 23);
+            this.panel1.Size = new System.Drawing.Size(1935, 46);
             this.panel1.TabIndex = 0;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(775, 5);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(1439, 10);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.Size = new System.Drawing.Size(106, 24);
             this.label5.TabIndex = 5;
             this.label5.Text = "우선순위";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(651, 5);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(1209, 10);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.Size = new System.Drawing.Size(58, 24);
             this.label4.TabIndex = 4;
             this.label4.Text = "크기";
             this.label4.Click += new System.EventHandler(this.label4_Click);
@@ -108,10 +108,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(472, 5);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(877, 10);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.Size = new System.Drawing.Size(58, 24);
             this.label3.TabIndex = 3;
             this.label3.Text = "유형";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -119,10 +119,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(309, 5);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(574, 10);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 12);
+            this.label2.Size = new System.Drawing.Size(138, 24);
             this.label2.TabIndex = 2;
             this.label2.Text = "수정한 날짜";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -130,51 +130,66 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 5);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(28, 10);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.Size = new System.Drawing.Size(58, 24);
             this.label1.TabIndex = 1;
             this.label1.Text = "이름";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // rightClickMenu
             // 
+            this.rightClickMenu.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.rightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.삭제ToolStripMenuItem,
             this.우선순위설정ToolStripMenuItem,
             this.우선순위강조ToolStripMenuItem,
-            this.우선순위초기화ToolStripMenuItem});
+            this.우선순위초기화ToolStripMenuItem,
+            this.우선순위정렬ToolStripMenuItem});
+            this.rightClickMenu.Margin = new System.Windows.Forms.Padding(1);
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(163, 92);
+            this.rightClickMenu.ShowCheckMargin = true;
+            this.rightClickMenu.ShowImageMargin = false;
+            this.rightClickMenu.Size = new System.Drawing.Size(265, 206);
             // 
             // 삭제ToolStripMenuItem
             // 
             this.삭제ToolStripMenuItem.Name = "삭제ToolStripMenuItem";
-            this.삭제ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.삭제ToolStripMenuItem.Size = new System.Drawing.Size(286, 38);
             this.삭제ToolStripMenuItem.Text = "삭제";
             this.삭제ToolStripMenuItem.Click += new System.EventHandler(this.삭제ToolStripMenuItem_Click);
             // 
             // 우선순위설정ToolStripMenuItem
             // 
             this.우선순위설정ToolStripMenuItem.Name = "우선순위설정ToolStripMenuItem";
-            this.우선순위설정ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.우선순위설정ToolStripMenuItem.Size = new System.Drawing.Size(286, 38);
             this.우선순위설정ToolStripMenuItem.Text = "우선순위 설정";
             this.우선순위설정ToolStripMenuItem.Click += new System.EventHandler(this.우선순위설정ToolStripMenuItem_Click);
             // 
             // 우선순위강조ToolStripMenuItem
             // 
             this.우선순위강조ToolStripMenuItem.Name = "우선순위강조ToolStripMenuItem";
-            this.우선순위강조ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.우선순위강조ToolStripMenuItem.Size = new System.Drawing.Size(286, 38);
             this.우선순위강조ToolStripMenuItem.Text = "우선순위 강조";
             this.우선순위강조ToolStripMenuItem.Click += new System.EventHandler(this.우선순위강조ToolStripMenuItem_Click);
             // 
             // 우선순위초기화ToolStripMenuItem
             // 
             this.우선순위초기화ToolStripMenuItem.Name = "우선순위초기화ToolStripMenuItem";
-            this.우선순위초기화ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.우선순위초기화ToolStripMenuItem.Size = new System.Drawing.Size(286, 38);
             this.우선순위초기화ToolStripMenuItem.Text = "우선순위 초기화";
             this.우선순위초기화ToolStripMenuItem.Click += new System.EventHandler(this.우선순위초기화ToolStripMenuItem_Click);
+            // 
+            // 우선순위정렬ToolStripMenuItem
+            // 
+            this.우선순위정렬ToolStripMenuItem.Checked = true;
+            this.우선순위정렬ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.우선순위정렬ToolStripMenuItem.Margin = new System.Windows.Forms.Padding(1);
+            this.우선순위정렬ToolStripMenuItem.Name = "우선순위정렬ToolStripMenuItem";
+            this.우선순위정렬ToolStripMenuItem.Size = new System.Drawing.Size(264, 40);
+            this.우선순위정렬ToolStripMenuItem.Text = "우선순위 정렬";
+            this.우선순위정렬ToolStripMenuItem.Click += new System.EventHandler(this.우선순위정렬ToolStripMenuItem_Click);
             // 
             // panel2
             // 
@@ -182,9 +197,10 @@
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.pathBar);
             this.panel2.Controls.Add(this.btn_back);
-            this.panel2.Location = new System.Drawing.Point(0, 1);
+            this.panel2.Location = new System.Drawing.Point(0, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1042, 42);
+            this.panel2.Size = new System.Drawing.Size(1935, 84);
             this.panel2.TabIndex = 6;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
@@ -193,18 +209,20 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Image = global::priority_file_explorer_.Properties.Resources.addfile;
-            this.button1.Location = new System.Drawing.Point(44, 5);
+            this.button1.Location = new System.Drawing.Point(82, 10);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(32, 32);
+            this.button1.Size = new System.Drawing.Size(59, 64);
             this.button1.TabIndex = 1;
             this.button1.UseVisualStyleBackColor = true;
             // 
             // pathBar
             // 
             this.pathBar.BackColor = System.Drawing.SystemColors.Window;
-            this.pathBar.Location = new System.Drawing.Point(203, 5);
+            this.pathBar.Location = new System.Drawing.Point(377, 10);
+            this.pathBar.Margin = new System.Windows.Forms.Padding(6);
             this.pathBar.Name = "pathBar";
-            this.pathBar.Size = new System.Drawing.Size(527, 31);
+            this.pathBar.Size = new System.Drawing.Size(979, 62);
             this.pathBar.TabIndex = 1;
             // 
             // btn_back
@@ -213,22 +231,22 @@
             this.btn_back.FlatAppearance.BorderSize = 0;
             this.btn_back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_back.Image = global::priority_file_explorer_.Properties.Resources.This_Way;
-            this.btn_back.Location = new System.Drawing.Point(7, 5);
-            this.btn_back.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_back.Location = new System.Drawing.Point(13, 10);
+            this.btn_back.Margin = new System.Windows.Forms.Padding(4);
             this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(32, 32);
+            this.btn_back.Size = new System.Drawing.Size(59, 64);
             this.btn_back.TabIndex = 0;
             this.btn_back.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1042, 583);
+            this.ClientSize = new System.Drawing.Size(1935, 1166);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -259,6 +277,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel pathBar;
         private System.Windows.Forms.Button btn_back;
+        private System.Windows.Forms.ToolStripMenuItem 우선순위정렬ToolStripMenuItem;
     }
 }
 
