@@ -48,3 +48,13 @@ C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\�
 C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\통합파일\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
 C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\통합파일\obj\Debug\priority-file-explorer-.exe
 C:\Users\yytss\Desktop\univ\3-1\응소실\team_project\priority-file-explorer\통합파일\obj\Debug\priority-file-explorer-.pdb
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\bin\Debug\priority-file-explorer-.exe.config
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\bin\Debug\priority-file-explorer-.exe
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\bin\Debug\priority-file-explorer-.pdb
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\obj\Debug\priority-file-explorer-.csproj.AssemblyReference.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\obj\Debug\priority_file_explorer_.Form1.resources
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\obj\Debug\priority_file_explorer_.Properties.Resources.resources
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\obj\Debug\priority-file-explorer-.csproj.GenerateResource.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\obj\Debug\priority-file-explorer-.csproj.CoreCompileInputs.cache
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\obj\Debug\priority-file-explorer-.exe
+C:\Users\enchupin\.vscode\git\priority-file-explorer-1\통합파일\obj\Debug\priority-file-explorer-.pdb
