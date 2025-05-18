@@ -736,18 +736,18 @@ namespace priority_file_explorer_
             }
         }
 
-        private void ToggleSort(SortField field)
-        {
+        private void ToggleSort(SortField field) {
             if (currentSortField == field)
                 ascending = !ascending;
-            else
-            {
+            else {
                 currentSortField = field;
                 ascending = true;
             }
 
             SortFilePanels();
+            UpdateSortLabels();
         }
+
 
         private void SortFilePanels()
         {
@@ -828,6 +828,37 @@ namespace priority_file_explorer_
         {
             ToggleSort(SortField.Priority);
         }
+
+
+        private void UpdateSortLabels() {
+            // 초기화
+            label1.Text = "이름";
+            label2.Text = "날짜";
+            label3.Text = "유형";
+            label4.Text = "크기";
+            label5.Text = "우선순위";
+
+            string direction = ascending ? "△" : "▽";
+
+            switch (currentSortField) {
+                case SortField.Name:
+                    label1.Text += $" ({direction})";
+                    break;
+                case SortField.Date:
+                    label2.Text += $" ({direction})";
+                    break;
+                case SortField.Type:
+                    label3.Text += $" ({direction})";
+                    break;
+                case SortField.Size:
+                    label4.Text += $" ({direction})";
+                    break;
+                case SortField.Priority:
+                    label5.Text += $" ({direction})";
+                    break;
+            }
+        }
+
 
         // 상단 패널 하단에 줄 긋기
         private void panel2_Paint(object sender, PaintEventArgs e)
