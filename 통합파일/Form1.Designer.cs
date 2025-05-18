@@ -29,13 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.파일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.파일ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.파일추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btn_back = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,54 +42,23 @@
             this.우선순위설정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.우선순위강조ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.우선순위초기화ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.pathBar = new System.Windows.Forms.Panel();
+            this.btn_back = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.rightClickMenu.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.Window;
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.파일ToolStripMenuItem,
-            this.파일ToolStripMenuItem1});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1042, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // 파일ToolStripMenuItem
-            // 
-            this.파일ToolStripMenuItem.Name = "파일ToolStripMenuItem";
-            this.파일ToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
-            this.파일ToolStripMenuItem.Text = "       ";
-            // 
-            // 파일ToolStripMenuItem1
-            // 
-            this.파일ToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.파일추가ToolStripMenuItem});
-            this.파일ToolStripMenuItem1.Name = "파일ToolStripMenuItem1";
-            this.파일ToolStripMenuItem1.Size = new System.Drawing.Size(43, 22);
-            this.파일ToolStripMenuItem1.Text = "파일";
-            // 
-            // 파일추가ToolStripMenuItem
-            // 
-            this.파일추가ToolStripMenuItem.Name = "파일추가ToolStripMenuItem";
-            this.파일추가ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.파일추가ToolStripMenuItem.Text = "파일 추가";
-            this.파일추가ToolStripMenuItem.Click += new System.EventHandler(this.파일추가ToolStripMenuItem_Click);
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AllowDrop = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 45);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 67);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1042, 539);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1042, 517);
             this.flowLayoutPanel1.TabIndex = 2;
             this.flowLayoutPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.FlowLayoutPanel1_DragDrop);
             this.flowLayoutPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.FlowLayoutPanel1_DragEnter);
@@ -102,17 +66,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // btn_back
-            // 
-            this.btn_back.Location = new System.Drawing.Point(0, 0);
-            this.btn_back.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(52, 22);
-            this.btn_back.TabIndex = 0;
-            this.btn_back.Text = "←";
-            this.btn_back.UseVisualStyleBackColor = true;
-            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
             // 
             // panel1
             // 
@@ -124,7 +77,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(0, 26);
+            this.panel1.Location = new System.Drawing.Point(0, 44);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1042, 23);
@@ -223,40 +176,74 @@
             this.우선순위초기화ToolStripMenuItem.Text = "우선순위 초기화";
             this.우선순위초기화ToolStripMenuItem.Click += new System.EventHandler(this.우선순위초기화ToolStripMenuItem_Click);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.pathBar);
+            this.panel2.Controls.Add(this.btn_back);
+            this.panel2.Location = new System.Drawing.Point(0, 1);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1042, 42);
+            this.panel2.TabIndex = 6;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::priority_file_explorer_.Properties.Resources.addfile;
+            this.button1.Location = new System.Drawing.Point(44, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(32, 32);
+            this.button1.TabIndex = 1;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // pathBar
+            // 
+            this.pathBar.BackColor = System.Drawing.SystemColors.Window;
+            this.pathBar.Location = new System.Drawing.Point(203, 5);
+            this.pathBar.Name = "pathBar";
+            this.pathBar.Size = new System.Drawing.Size(527, 31);
+            this.pathBar.TabIndex = 1;
+            // 
+            // btn_back
+            // 
+            this.btn_back.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btn_back.FlatAppearance.BorderSize = 0;
+            this.btn_back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_back.Image = global::priority_file_explorer_.Properties.Resources.This_Way;
+            this.btn_back.Location = new System.Drawing.Point(7, 5);
+            this.btn_back.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(32, 32);
+            this.btn_back.TabIndex = 0;
+            this.btn_back.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1042, 583);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btn_back);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.rightClickMenu.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 파일ToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button btn_back;
-        private System.Windows.Forms.ToolStripMenuItem 파일ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 파일추가ToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
@@ -268,6 +255,10 @@
         private System.Windows.Forms.ToolStripMenuItem 우선순위설정ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 우선순위강조ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 우선순위초기화ToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel pathBar;
+        private System.Windows.Forms.Button btn_back;
     }
 }
 
