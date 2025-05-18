@@ -770,7 +770,9 @@ namespace priority_file_explorer_
                         break;
 
                     case SortField.Size:
-                        cmp = infoA.Length.CompareTo(infoB.Length);
+                        long sizeA = Directory.Exists(pathA) ? 0 : infoA.Length;
+                        long sizeB = Directory.Exists(pathB) ? 0 : infoB.Length;
+                        cmp = sizeA.CompareTo(sizeB);
                         break;
 
                     case SortField.Priority:
