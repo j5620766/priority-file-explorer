@@ -1,0 +1,5 @@
+C:\Program Files (x86)\Dev-Cpp\devcpp.exe,34
+C:\Users\enchupin\.vscode\git\priority-file-explorer\priority-file-explorer-\bin\Debug\priority-file-explorer-.exe,34
+C:\Users\enchupin\AppData\Local\Discord\Update.exe,99
+C:\Users\enchupin\Desktop\test\test1,1
+C:\Nexon\NexonPlug\NexonPlug.exe,0

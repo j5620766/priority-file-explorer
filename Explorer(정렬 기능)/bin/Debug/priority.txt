@@ -1,0 +1,24 @@
+C:\$Recycle.Bin,0
+C:\$SysReset,0
+C:\$WinREAgent,0
+C:\Documents and Settings,0
+C:\Nexon,0
+C:\OneDriveTemp,0
+C:\PerfLogs,0
+C:\PrivacyPolicy,0
+C:\Program Files,0
+C:\Program Files (x86),0
+C:\ProgramData,0
+C:\recovery,0
+C:\System Volume Information,0
+C:\Users,0
+C:\User_guide,0
+C:\Wallpaper,0
+C:\Windows,0
+C:\appverifUI.dll,0
+C:\DumpStack.log.tmp,0
+C:\hiberfil.sys,0
+C:\pagefile.sys,0
+C:\swapfile.sys,0
+C:\testset.txt,0
+C:\vfcompat.dll,0

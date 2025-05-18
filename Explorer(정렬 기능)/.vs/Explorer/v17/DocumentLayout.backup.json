@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\enchupin\\.vscode\\git\\priority-file-explorer\\Explorer(\uC815\uB82C \uAE30\uB2A5)\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3A62C7C9-53B3-4832-B352-403771449149}|Explorer.csproj|c:\\users\\enchupin\\.vscode\\git\\priority-file-explorer\\explorer(\uC815\uB82C \uAE30\uB2A5)\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3A62C7C9-53B3-4832-B352-403771449149}|Explorer.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A62C7C9-53B3-4832-B352-403771449149}|Explorer.csproj|C:\\Users\\enchupin\\.vscode\\git\\priority-file-explorer\\Explorer(\uC815\uB82C \uAE30\uB2A5)\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A62C7C9-53B3-4832-B352-403771449149}|Explorer.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\Users\\enchupin\\.vscode\\git\\priority-file-explorer\\Explorer(\uC815\uB82C \uAE30\uB2A5)\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\enchupin\\.vscode\\git\\priority-file-explorer\\Explorer(\uC815\uB82C \uAE30\uB2A5)\\Form1.cs [\uB514\uC790\uC778]*",
+              "RelativeToolTip": "Form1.cs [\uB514\uC790\uC778]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T01:32:47.723Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\enchupin\\.vscode\\git\\priority-file-explorer\\Explorer(\uC815\uB82C \uAE30\uB2A5)\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\enchupin\\.vscode\\git\\priority-file-explorer\\Explorer(\uC815\uB82C \uAE30\uB2A5)\\Form1.cs*",
+              "RelativeToolTip": "Form1.cs*",
+              "ViewState": "AgIAAGoBAAAAAAAAAAAAAOQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T01:56:49.263Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

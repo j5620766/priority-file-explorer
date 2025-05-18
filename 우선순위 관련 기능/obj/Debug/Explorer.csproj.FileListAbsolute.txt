@@ -1,0 +1,60 @@
+C:\Projects\Explorer\bin\Debug\Explorer.exe.config
+C:\Projects\Explorer\bin\Debug\Explorer.exe
+C:\Projects\Explorer\bin\Debug\Explorer.pdb
+C:\Projects\Explorer\obj\Debug\Explorer.csproj.AssemblyReference.cache
+C:\Projects\Explorer\obj\Debug\Explorer.Form1.resources
+C:\Projects\Explorer\obj\Debug\Explorer.Properties.Resources.resources
+C:\Projects\Explorer\obj\Debug\Explorer.csproj.GenerateResource.cache
+C:\Projects\Explorer\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
+C:\Projects\Explorer\obj\Debug\Explorer.exe
+C:\Projects\Explorer\obj\Debug\Explorer.pdb
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\bin\Debug\Explorer.exe.config
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\bin\Debug\Explorer.exe
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\bin\Debug\Explorer.pdb
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\obj\Debug\Explorer.csproj.AssemblyReference.cache
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\obj\Debug\Explorer.Form1.resources
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\obj\Debug\Explorer.Properties.Resources.resources
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\obj\Debug\Explorer.csproj.GenerateResource.cache
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\obj\Debug\Explorer.exe
+C:\Projects\Explorer(우선순위 설정 및 수정 기능)\obj\Debug\Explorer.pdb
+C:\Projects\Explorer(우선순위 강조 표시 기능)\bin\Debug\Explorer.exe.config
+C:\Projects\Explorer(우선순위 강조 표시 기능)\bin\Debug\Explorer.exe
+C:\Projects\Explorer(우선순위 강조 표시 기능)\bin\Debug\Explorer.pdb
+C:\Projects\Explorer(우선순위 강조 표시 기능)\obj\Debug\Explorer.csproj.AssemblyReference.cache
+C:\Projects\Explorer(우선순위 강조 표시 기능)\obj\Debug\Explorer.Form1.resources
+C:\Projects\Explorer(우선순위 강조 표시 기능)\obj\Debug\Explorer.Properties.Resources.resources
+C:\Projects\Explorer(우선순위 강조 표시 기능)\obj\Debug\Explorer.csproj.GenerateResource.cache
+C:\Projects\Explorer(우선순위 강조 표시 기능)\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
+C:\Projects\Explorer(우선순위 강조 표시 기능)\obj\Debug\Explorer.exe
+C:\Projects\Explorer(우선순위 강조 표시 기능)\obj\Debug\Explorer.pdb
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\bin\Debug\Explorer.exe.config
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\bin\Debug\Explorer.exe
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\bin\Debug\Explorer.pdb
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\obj\Debug\Explorer.csproj.AssemblyReference.cache
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\obj\Debug\Explorer.Form1.resources
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\obj\Debug\Explorer.Properties.Resources.resources
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\obj\Debug\Explorer.csproj.GenerateResource.cache
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\obj\Debug\Explorer.exe
+C:\Projects\Explorer(우선순위 항목 강조 표시 기능)\obj\Debug\Explorer.pdb
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\bin\Debug\Explorer.exe.config
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\bin\Debug\Explorer.exe
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\bin\Debug\Explorer.pdb
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.csproj.AssemblyReference.cache
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.Form1.resources
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.Properties.Resources.resources
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.csproj.GenerateResource.cache
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.exe
+C:\Projects\응용소프트웨어실습\팀 프로젝트\우선순위 관련 기능\obj\Debug\Explorer.pdb
+C:\Git\priority-file-explorer\우선순위 관련 기능\bin\Debug\Explorer.exe.config
+C:\Git\priority-file-explorer\우선순위 관련 기능\bin\Debug\Explorer.exe
+C:\Git\priority-file-explorer\우선순위 관련 기능\bin\Debug\Explorer.pdb
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.csproj.AssemblyReference.cache
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.Form1.resources
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.Properties.Resources.resources
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.csproj.GenerateResource.cache
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.csproj.CoreCompileInputs.cache
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.exe
+C:\Git\priority-file-explorer\우선순위 관련 기능\obj\Debug\Explorer.pdb
