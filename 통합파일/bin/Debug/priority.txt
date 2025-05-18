@@ -1,3 +1,5 @@
 C:\Users\enchupin\Desktop\C# 윈폼(Windows Forms) 웹(Blazor + Ant Design) 메뉴 예쁘게 만들기.url,99
 C:\Program Files (x86)\Dev-Cpp\devcpp.exe,0
 C:\Users\enchupin\AppData\Local\Discord\Update.exe,99
+C:\Users\yytss\Downloads\This Way.jpg,3
+C:\Users\yytss\Downloads\ProtonVPN_v3.5.2_x64.exe,10
