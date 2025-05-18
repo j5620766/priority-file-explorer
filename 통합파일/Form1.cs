@@ -41,6 +41,9 @@ namespace priority_file_explorer_
         {
             InitializeComponent();
 
+            this.trvDir.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.trvDir_BeforeExpand);
+            this.trvDir.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.trvDir_BeforeSelect);
+
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;  // 한 줄씩 아래로 출력
             flowLayoutPanel1.WrapContents = false;                   // 줄 바꿈 없음
             flowLayoutPanel1.AutoScroll = true;
@@ -107,6 +110,22 @@ namespace priority_file_explorer_
             catch (Exception ex)
             {
                 MessageBox.Show("virtual root 불러오기 실패: " + ex.Message);
+            }
+
+            string[] Drv_list;
+            TreeNode root;
+
+            Drv_list = Environment.GetLogicalDrives();
+
+            foreach (string Drv in Drv_list)
+            {
+                root = trvDir.Nodes.Add(Drv);
+                root.Tag = Drv; // 실제 경로 저장
+                root.ImageIndex = 2;
+                if (trvDir.SelectedNode == null)
+                    trvDir.SelectedNode = null;
+                root.SelectedImageIndex = root.ImageIndex;
+                root.Nodes.Add(""); // 더미 노드
             }
 
             LoadPriorityData();
@@ -943,6 +962,188 @@ namespace priority_file_explorer_
                 우선순위정렬ToolStripMenuItem.Checked = true;
                 usePri = true;
                 SortFilePanels();
+            }
+        }
+
+        private async void btnSearch_Click(object sender, EventArgs e)
+        {
+            string input = txtPath.Text.Trim();
+            if (string.IsNullOrEmpty(input))
+            {
+                MessageBox.Show("검색어를 입력하세요.");
+                return;
+            }
+
+            string rootPath, pattern;
+
+            // currentPath가 비어있으면 VIRTUAL_ROOT로 간주
+            if (string.IsNullOrEmpty(currentPath) || currentPath == "VIRTUAL_ROOT")
+            {
+                MessageBox.Show("검색할 폴더를 먼저 선택하세요.");
+                return;
+            }
+
+            // 입력이 경로이면 해당 경로에서 검색, 아니면 currentPath에서 이름 검색
+            if (Path.IsPathRooted(input) && Directory.Exists(input))
+            {
+                rootPath = input;
+                pattern = "*";
+            }
+            else
+            {
+                rootPath = currentPath;
+                pattern = "*" + input + "*";
+            }
+
+
+            // 1) FlowLayoutPanel 클리어
+            flowLayoutPanel1.Controls.Clear();
+
+            // 2) 백그라운드에서 검색 수행
+            var results = await Task.Run(() => GetSearchResults(rootPath, pattern));
+
+            // 3) 검색 결과를 FlowLayoutPanel에 채우기
+            foreach (var info in results)
+            {
+                string path = info.FullName;
+                try
+                {
+                    flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("패널 생성 실패: " + ex.Message);
+                }
+            }
+
+        }
+
+        private List<FileSystemInfo> GetSearchResults(string root, string pattern)
+        {
+            var output = new List<FileSystemInfo>();
+            var stack = new Stack<DirectoryInfo>();
+            stack.Push(new DirectoryInfo(root));
+
+            while (stack.Count > 0)
+            {
+                var dir = stack.Pop();
+
+                // 1. 패턴에 맞는 파일 추가
+                try
+                {
+                    foreach (var file in dir.EnumerateFiles(pattern))
+                        output.Add(file);
+                }
+                catch { /* 액세스 거부, TooLong 등 무시 */ }
+
+                // 2. 모든 하위 폴더 탐색, 결과에는 패턴에 맞는 폴더만 추가
+                try
+                {
+                    foreach (var sub in dir.EnumerateDirectories())
+                    {
+                        // 결과에는 패턴에 맞는 폴더만 추가
+                        if (WildcardMatch(sub.Name, pattern))
+                            output.Add(sub);
+
+                        // 하위 폴더는 무조건 탐색
+                        if ((sub.Attributes & FileAttributes.ReparsePoint) == 0)
+                            stack.Push(sub);
+                    }
+                }
+                catch { /* 액세스 거부, TooLong 등 무시 */ }
+            }
+
+            return output;
+        }
+
+        // 와일드카드 패턴 매칭 함수 (간단 버전)
+        private bool WildcardMatch(string input, string pattern)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(
+                input,
+                "^" + System.Text.RegularExpressions.Regex.Escape(pattern).Replace("\\*", ".*") + "$",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase
+            );
+        }
+
+        public void setPlus(TreeNode node)
+        {
+            string path;
+            DirectoryInfo dir;
+            DirectoryInfo[] di;
+
+            try
+            {
+                path = node.FullPath; // 노드의 전체 경로
+                dir = new DirectoryInfo(path);
+                di = dir.GetDirectories(); // 하위 디렉터리 목록
+                if (di.Length > 0) // 하위 디렉터리가 하나라도 있으면 더미로 빈 노드 추가
+                    node.Nodes.Add("");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private TreeNode FindNodeByPath(TreeNodeCollection nodes, string path)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                // 트리뷰 노드의 FullPath 속성과 비교
+                if (string.Equals(node.FullPath, path, StringComparison.InvariantCultureIgnoreCase))
+                    return node;
+
+                // 자식이 “+”만 달려 있는 더미 노드 상태라면 실제 하위 폴더 채우기
+                if (node.Nodes.Count == 1 && node.Nodes[0].Text == "")
+                    setPlus(node);
+
+                // 재귀 탐색
+                TreeNode found = FindNodeByPath(node.Nodes, path);
+                if (found != null)
+                    return found;
+            }
+            return null;
+        }
+
+        private void trvDir_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            try
+            {
+                e.Node.Nodes.Clear();
+                string path = e.Node.Tag as string;
+                if (string.IsNullOrEmpty(path) || !Directory.Exists(path)) return;
+
+                DirectoryInfo dir = new DirectoryInfo(path);
+                foreach (DirectoryInfo subDir in dir.GetDirectories())
+                {
+                    TreeNode node = e.Node.Nodes.Add(subDir.Name);
+                    node.Tag = subDir.FullName; // 실제 경로 저장
+                    setPlus(node);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //해당 폴더의 파일/폴더 목록을 FlowLayoutPannel 표시
+        private void trvDir_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            try
+            {
+                // 1) 실제 경로는 Tag에서 가져옴
+                string selectedPath = e.Node.Tag as string;
+                if (string.IsNullOrEmpty(selectedPath) || !Directory.Exists(selectedPath))
+                    return;
+
+                // 2) 폴더 열기
+                NavigateToFolder(selectedPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("폴더 열기 실패: " + ex.Message);
             }
         }
     }
