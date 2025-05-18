@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 
 namespace priority_file_explorer_
 {
@@ -286,6 +285,8 @@ namespace priority_file_explorer_
         {
             FileInfo fileInfo = new FileInfo(path);
 
+            Font infoFont = new Font("Segoe UI", 9f);
+
             Panel infoPanel = new Panel();
             infoPanel.Height = 30;
             infoPanel.Width = 800;
@@ -296,24 +297,28 @@ namespace priority_file_explorer_
             nameLabel.Text = Path.GetFileName(path);
             nameLabel.SetBounds(0, -6, 260, 30);
             nameLabel.TextAlign = ContentAlignment.MiddleLeft;
+            nameLabel.Font = infoFont;
 
             // 날짜
             Label dateLabel = new Label();
             dateLabel.Text = fileInfo.Exists ? fileInfo.LastWriteTime.ToString("yyyy-MM-dd HH:mm") : "";
             dateLabel.SetBounds(270, -6, 140, 30);
             dateLabel.TextAlign = ContentAlignment.MiddleLeft;
+            dateLabel.Font = infoFont;
 
             // 유형
             Label typeLabel = new Label();
             typeLabel.Text = Directory.Exists(path) ? "파일 폴더" : fileInfo.Extension.ToUpper() + " 파일";
             typeLabel.SetBounds(430, -6, 100, 30);
             typeLabel.TextAlign = ContentAlignment.MiddleLeft;
+            typeLabel.Font = infoFont;
 
             // 크기
             Label sizeLabel = new Label();
             sizeLabel.Text = Directory.Exists(path) ? "" : GetSizeText(fileInfo.Length);
             sizeLabel.SetBounds(560, -6, 90, 30);
             sizeLabel.TextAlign = ContentAlignment.MiddleRight;
+            sizeLabel.Font = infoFont;
 
             // 추가
             infoPanel.Controls.Add(nameLabel);
@@ -334,6 +339,7 @@ namespace priority_file_explorer_
             }
 
             currentPath = path;
+            RenderPathBar(currentPath);
             flowLayoutPanel1.Controls.Clear();
 
             try
@@ -347,6 +353,12 @@ namespace priority_file_explorer_
                             flowLayoutPanel1.Controls.Add(CreateFilePanel(entry));
                         }
                     }
+                    return;
+                }
+
+                if (!Directory.Exists(path))
+                {
+                    MessageBox.Show($"폴더가 존재하지 않음: {path}");
                     return;
                 }
 
@@ -479,5 +491,81 @@ namespace priority_file_explorer_
 
             selectedPanel = null;
         }
+
+        // 상단 패널 하단에 줄 긋기
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+            using (Pen pen = new Pen(Color.Gray, 1)) // 선 색상과 두께
+            {
+                int y = panel2.Height - 1; // 맨 아래쪽에 선 그리기
+                e.Graphics.DrawLine(pen, 0, y, panel2.Width, y);
+            }
+        }
+
+        void RenderPathBar(string fullPath)
+        {
+            pathBar.Controls.Clear();
+
+            string[] parts = fullPath.Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
+
+            // 직접 누적 경로 초기화
+            string cumulativePath = parts[0].EndsWith(":") ? parts[0] + "\\" : parts[0]; // 예: "C:/"로 시작 보장
+
+            int x = 10;
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                string part = parts[i];
+
+                // 첫 부분("C:")은 이미 누적됨, 이후부터 누적
+                if (i > 0)
+                    cumulativePath = Path.Combine(cumulativePath, part);
+
+                // 버튼 생성
+                Button btn = new Button
+                {
+                    Text = part,
+                    Height = 24,
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 9),
+                    FlatStyle = FlatStyle.Flat,
+                    FlatAppearance = { BorderSize = 0 },
+                    Location = new Point(x, 5)
+                };
+
+                string targetPath = cumulativePath;
+                btn.Click += (s, e) =>
+                {
+                    if (Directory.Exists(targetPath))
+                    {
+                        NavigateToFolder(targetPath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("폴더가 존재하지 않음: " + targetPath);
+                    }
+                };
+
+                pathBar.Controls.Add(btn);
+                x += btn.Width;
+
+                // ▶ 구분자 추가
+                if (i < parts.Length - 1)
+                {
+                    Label arrow = new Label
+                    {
+                        Text = "▶",
+                        Location = new Point(x + 2, 8),
+                        AutoSize = true,
+                        ForeColor = Color.Gray
+                    };
+                    pathBar.Controls.Add(arrow);
+                    x += arrow.Width + 5;
+                }
+            }
+        }
+
+
+
     }
 }
