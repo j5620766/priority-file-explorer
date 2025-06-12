@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -37,6 +38,9 @@ namespace priority_file_explorer_
         private SortField currentSortField = SortField.Name;
         private bool ascending = true;
 
+        private CancellationTokenSource _searchCts;          // ← 탐색 취소용
+        private const int BatchSize = 3;
+
         public Form1()
         {
             InitializeComponent();
@@ -49,7 +53,6 @@ namespace priority_file_explorer_
             flowLayoutPanel1.AutoScroll = true;
 
             this.FormClosing += Form1_FormClosing;
-            this.Load += Form1_Load;
 
             if (!Directory.Exists(storageFolder))
                 Directory.CreateDirectory(storageFolder);
@@ -116,6 +119,7 @@ namespace priority_file_explorer_
             TreeNode root;
 
             Drv_list = Environment.GetLogicalDrives();
+            
 
             foreach (string Drv in Drv_list)
             {
@@ -410,9 +414,14 @@ namespace priority_file_explorer_
             // 이름
             Label nameLabel = new Label();
             nameLabel.Text = Path.GetFileName(path);
-            nameLabel.SetBounds(0, -6, 260, 30);
+            nameLabel.SetBounds(0, -4, 260, infoFont.Height);
             nameLabel.TextAlign = ContentAlignment.MiddleLeft;
             nameLabel.Font = infoFont;
+            nameLabel.AutoSize = false;
+            nameLabel.AutoEllipsis = true;
+            nameLabel.MaximumSize = new Size(260, infoFont.Height);
+            nameLabel.Dock = DockStyle.Left;
+
 
             // 날짜
             Label dateLabel = new Label();
@@ -460,6 +469,9 @@ namespace priority_file_explorer_
 
         private void NavigateToFolder(string path, bool addToHistory = true)
         {
+            _searchCts?.Cancel();
+            _searchCts = null;
+
             if (addToHistory && !string.IsNullOrEmpty(currentPath))
             {
                 pathHistory.Push(currentPath);
@@ -502,10 +514,9 @@ namespace priority_file_explorer_
 
                 PriorityHighlight();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("폴더 열기 실패: " + ex.Message);
-            }
+            catch (UnauthorizedAccessException) { /* ignore */ }
+            catch (PathTooLongException) { /* ignore */ }
+            catch (Exception ex) { Debug.WriteLine(ex); }
         }
 
         private void btn_back_Click(object sender, EventArgs e)
@@ -965,58 +976,114 @@ namespace priority_file_explorer_
             }
         }
 
+        private IEnumerable<FileSystemInfo> EnumerateRecursively(
+        string root, string pattern, CancellationToken token)
+        {
+            var stack = new Stack<DirectoryInfo>();
+            stack.Push(new DirectoryInfo(root));
+
+            while (stack.Count > 0)
+            {
+                token.ThrowIfCancellationRequested();
+                DirectoryInfo dir = stack.Pop();
+
+                /* 1) 파일 */
+                IEnumerable<FileInfo> files;
+                try { files = dir.EnumerateFiles(pattern, SearchOption.TopDirectoryOnly); }
+                catch { continue; }
+
+                foreach (var f in files)
+                {
+                    yield return f;
+                    token.ThrowIfCancellationRequested();
+                }
+
+                /* 2) 하위 폴더 */
+                DirectoryInfo[] subs;
+                try { subs = dir.GetDirectories(); }
+                catch { continue; }
+
+                foreach (var sub in subs)
+                {
+                    if ((sub.Attributes & FileAttributes.ReparsePoint) == 0)
+                        stack.Push(sub);
+
+                    if (WildcardMatch(sub.Name, pattern))
+                        yield return sub;
+                }
+            }
+        }
+
+        /* ---------- ④ btnSearch_Click : 배치-단위로 패널 추가 ---------- */
         private async void btnSearch_Click(object sender, EventArgs e)
         {
+            /* (1) 이전 검색 중단 + 새 토큰 생성 */
+            _searchCts?.Cancel();
+            _searchCts = new CancellationTokenSource();
+            CancellationToken token = _searchCts.Token;
+
+            /* (2) rootPath / pattern 결정 – 기존 로직 재사용 */
             string input = txtPath.Text.Trim();
-            if (string.IsNullOrEmpty(input))
-            {
-                MessageBox.Show("검색어를 입력하세요.");
-                return;
-            }
+            if (string.IsNullOrEmpty(input)) { MessageBox.Show("검색어를 입력하세요."); return; }
 
             string rootPath, pattern;
-
-            // currentPath가 비어있으면 VIRTUAL_ROOT로 간주
-            if (string.IsNullOrEmpty(currentPath) || currentPath == "VIRTUAL_ROOT")
-            {
-                MessageBox.Show("검색할 폴더를 먼저 선택하세요.");
-                return;
-            }
-
-            // 입력이 경로이면 해당 경로에서 검색, 아니면 currentPath에서 이름 검색
             if (Path.IsPathRooted(input) && Directory.Exists(input))
             {
-                rootPath = input;
+                rootPath = input.EndsWith("\\") ? input : input + "\\";
                 pattern = "*";
             }
             else
             {
+                if (string.IsNullOrEmpty(currentPath) || currentPath == "VIRTUAL_ROOT")
+                { MessageBox.Show("검색할 폴더를 먼저 선택하세요."); return; }
+
                 rootPath = currentPath;
                 pattern = "*" + input + "*";
             }
 
-
-            // 1) FlowLayoutPanel 클리어
+            /* (3) UI 초기화 */
             flowLayoutPanel1.Controls.Clear();
 
-            // 2) 백그라운드에서 검색 수행
-            var results = await Task.Run(() => GetSearchResults(rootPath, pattern));
-
-            // 3) 검색 결과를 FlowLayoutPanel에 채우기
-            foreach (var info in results)
+            /* (4) 백그라운드 검색 */
+            await Task.Run(() =>
             {
-                string path = info.FullName;
-                try
-                {
-                    flowLayoutPanel1.Controls.Add(CreateFilePanel(path));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("패널 생성 실패: " + ex.Message);
-                }
-            }
+                var batch = new List<FileSystemInfo>(BatchSize);
 
+                foreach (var info in EnumerateRecursively(rootPath, pattern, token))
+                {
+                    batch.Add(info);
+
+                    if (batch.Count == BatchSize)
+                    {
+                        SendBatch(batch);
+                        batch = new List<FileSystemInfo>(BatchSize);
+                    }
+                }
+                if (batch.Count > 0) SendBatch(batch);
+
+                /* 로컬 함수 – UI 스레드로 전달 */
+                void SendBatch(List<FileSystemInfo> snapshot)
+                {
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        foreach (var f in snapshot)
+                            flowLayoutPanel1.Controls.Add(CreateFilePanel(f.FullName));
+
+                        
+                    }));
+                }
+            }, token)
+            /* (5) 마무리 */
+            .ContinueWith(t =>
+            {
+                if (IsDisposed) return;                // 폼이 이미 닫혔으면 무시
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    
+                }));
+            });
         }
+
 
         private List<FileSystemInfo> GetSearchResults(string root, string pattern)
         {
@@ -1080,9 +1147,11 @@ namespace priority_file_explorer_
                 if (di.Length > 0) // 하위 디렉터리가 하나라도 있으면 더미로 빈 노드 추가
                     node.Nodes.Add("");
             }
+            catch (UnauthorizedAccessException) { }
+            catch (PathTooLongException) { }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+
             }
         }
 
@@ -1122,9 +1191,11 @@ namespace priority_file_explorer_
                     setPlus(node);
                 }
             }
+            catch (UnauthorizedAccessException) { }
+            catch (PathTooLongException) { }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                
             }
         }
 
@@ -1141,10 +1212,9 @@ namespace priority_file_explorer_
                 // 2) 폴더 열기
                 NavigateToFolder(selectedPath);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("폴더 열기 실패: " + ex.Message);
-            }
+            catch (UnauthorizedAccessException) { /* ignore */ }
+            catch (PathTooLongException) { /* ignore */ }
+            catch (Exception ex) { Debug.WriteLine(ex); }
         }
     }
 }
