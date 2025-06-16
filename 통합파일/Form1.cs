@@ -1079,7 +1079,7 @@ namespace priority_file_explorer_
                 if (IsDisposed) return;                // 폼이 이미 닫혔으면 무시
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    
+                    txtPath.Text = "";
                 }));
             });
         }
