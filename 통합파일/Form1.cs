@@ -1064,13 +1064,25 @@ namespace priority_file_explorer_
                 /* 로컬 함수 – UI 스레드로 전달 */
                 void SendBatch(List<FileSystemInfo> snapshot)
                 {
-                    this.Invoke((MethodInvoker)(() =>
-                    {
-                        foreach (var f in snapshot)
-                            flowLayoutPanel1.Controls.Add(CreateFilePanel(f.FullName));
+                    try {
+                        if (!this.IsHandleCreated || this.IsDisposed) return;
 
-                        
-                    }));
+                        this.Invoke((MethodInvoker)(() =>
+                        {
+                            foreach (var f in snapshot) {
+                                string path = f.FullName;
+                                if (File.Exists(path) || Directory.Exists(path)) {
+                                    try {
+                                        var panel = CreateFilePanel(path);
+                                        if (panel != null)
+                                            flowLayoutPanel1.Controls.Add(panel);
+                                    } catch (Exception ex) {
+                                        Debug.WriteLine("패널 생성 중 오류: " + ex.Message);
+                                    }
+                                }
+                            }
+                        }));
+                    } catch (ObjectDisposedException) { } catch (InvalidOperationException) { }
                 }
             }, token)
             /* (5) 마무리 */
