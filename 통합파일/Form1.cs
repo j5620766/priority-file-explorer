@@ -391,9 +391,21 @@ namespace priority_file_explorer_
             {
                 pb.Image = Properties.Resources.folder;  // 또는 사용자 정의 폴더 아이콘
             }
-            else
-            {
-                pb.Image = Icon.ExtractAssociatedIcon(file).ToBitmap();
+            else {
+                try {
+                    if (File.Exists(file)) {
+                        Icon icon = Icon.ExtractAssociatedIcon(file);
+
+                        if (icon != null)
+                            pb.Image = icon.ToBitmap();
+                        else
+                            pb.Image = SystemIcons.Warning.ToBitmap();  // fallback
+                    } else {
+                        pb.Image = SystemIcons.Warning.ToBitmap(); // path가 아예 없을 때도 대비
+                    }
+                } catch {
+                    pb.Image = SystemIcons.Warning.ToBitmap(); // icon 추출 자체 실패
+                }
             }
 
             return pb;
