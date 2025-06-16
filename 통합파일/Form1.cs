@@ -391,9 +391,21 @@ namespace priority_file_explorer_
             {
                 pb.Image = Properties.Resources.folder;  // 또는 사용자 정의 폴더 아이콘
             }
-            else
-            {
-                pb.Image = Icon.ExtractAssociatedIcon(file).ToBitmap();
+            else {
+                try {
+                    if (File.Exists(file)) {
+                        Icon icon = Icon.ExtractAssociatedIcon(file);
+
+                        if (icon != null)
+                            pb.Image = icon.ToBitmap();
+                        else
+                            pb.Image = SystemIcons.Warning.ToBitmap();  // fallback
+                    } else {
+                        pb.Image = SystemIcons.Warning.ToBitmap(); // path가 아예 없을 때도 대비
+                    }
+                } catch {
+                    pb.Image = SystemIcons.Warning.ToBitmap(); // icon 추출 자체 실패
+                }
             }
 
             return pb;
@@ -1064,13 +1076,25 @@ namespace priority_file_explorer_
                 /* 로컬 함수 – UI 스레드로 전달 */
                 void SendBatch(List<FileSystemInfo> snapshot)
                 {
-                    this.Invoke((MethodInvoker)(() =>
-                    {
-                        foreach (var f in snapshot)
-                            flowLayoutPanel1.Controls.Add(CreateFilePanel(f.FullName));
+                    try {
+                        if (!this.IsHandleCreated || this.IsDisposed) return;
 
-                        
-                    }));
+                        this.Invoke((MethodInvoker)(() =>
+                        {
+                            foreach (var f in snapshot) {
+                                string path = f.FullName;
+                                if (File.Exists(path) || Directory.Exists(path)) {
+                                    try {
+                                        var panel = CreateFilePanel(path);
+                                        if (panel != null)
+                                            flowLayoutPanel1.Controls.Add(panel);
+                                    } catch (Exception ex) {
+                                        Debug.WriteLine("패널 생성 중 오류: " + ex.Message);
+                                    }
+                                }
+                            }
+                        }));
+                    } catch (ObjectDisposedException) { } catch (InvalidOperationException) { }
                 }
             }, token)
             /* (5) 마무리 */
@@ -1079,7 +1103,7 @@ namespace priority_file_explorer_
                 if (IsDisposed) return;                // 폼이 이미 닫혔으면 무시
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    
+                    txtPath.Text = "";
                 }));
             });
         }
