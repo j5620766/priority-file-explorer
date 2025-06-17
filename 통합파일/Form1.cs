@@ -1052,6 +1052,11 @@ namespace priority_file_explorer_
                 rootPath = currentPath;
                 pattern = "*" + input + "*";
             }
+            string searchPathLabel = Path.GetFileName(rootPath.TrimEnd('\\'));
+            if (string.IsNullOrEmpty(searchPathLabel))
+                searchPathLabel = rootPath;
+
+            RenderPathBar(searchPathLabel + "의 검색 결과");
 
             /* (3) UI 초기화 */
             flowLayoutPanel1.Controls.Clear();
@@ -1103,7 +1108,7 @@ namespace priority_file_explorer_
                 if (IsDisposed) return;                // 폼이 이미 닫혔으면 무시
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    txtPath.Text = "";
+                    
                 }));
             });
         }
@@ -1240,5 +1245,7 @@ namespace priority_file_explorer_
             catch (PathTooLongException) { /* ignore */ }
             catch (Exception ex) { Debug.WriteLine(ex); }
         }
+
+
     }
 }
