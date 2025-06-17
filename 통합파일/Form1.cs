@@ -1056,7 +1056,7 @@ namespace priority_file_explorer_
             if (string.IsNullOrEmpty(searchPathLabel))
                 searchPathLabel = rootPath;
 
-            RenderPathBar(searchPathLabel + "의 검색 결과");
+            RenderPathBar(searchPathLabel + " ▶ 검색 중...");
 
             /* (3) UI 초기화 */
             flowLayoutPanel1.Controls.Clear();
@@ -1108,7 +1108,11 @@ namespace priority_file_explorer_
                 if (IsDisposed) return;                // 폼이 이미 닫혔으면 무시
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    
+                    string folderName = Path.GetFileName(rootPath.TrimEnd('\\'));
+                    if (string.IsNullOrEmpty(folderName))
+                        folderName = rootPath;
+
+                    RenderPathBar(folderName + "의 검색 결과");
                 }));
             });
         }
